@@ -1,0 +1,43 @@
+.dotGrid {
+// @apply absolute top-3 bottom-3 right-9/10 grid max-w-3/4 z-0;
+
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  right: 3.6rem;
+  max-width: 75%;
+  display: grid;
+  z-index: 0;
+}
+
+.dotWrapper {
+  // @apply p-1 cursor-crosshair transition-background rounded-full;
+
+  // padding: 0.8rem;
+  // cursor: crosshair;
+  // transition: 0.25s background;
+  // border-radius: 8px;
+}
+
+.dot {
+  // @apply w-2 h-2 rounded-full bg-gradient-to-b from-background to-text opacity-35;
+
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, var(--background), var(--text));
+  opacity: 0.35;
+}
+
+.dotWrapper:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.dotWrapper:hover > .dot {
+  background: linear-gradient(
+    180deg,
+    var(--background),
+    var(--brand)
+  ) !important;
+  opacity: 1 !important;
+}

@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: rgb(17, 17, 17);
+  --bg-opaque: rgb(17, 17, 17, 0.25);
+  --background-light: rgb(35, 35, 35);
+  --background-dark: rgb(8, 8, 8);
+
+  --text: rgb(235, 236, 243);
+  --brand: #ff2c2c;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+*::selection {
+  background: var(--brand);
+  color: var(--background);
+}
+
+html,
+body {
+  max-width: 100vw;
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--text);
+}
+
+
+.section-wrapper {
+  @apply relative z-10 max-w-7xl mx-auto px-4 md:px-24 pt-20;
+}
+
+.sideBar {
+  @apply bg-background-dark h-screen sticky top-0 z-20 flex flex-col items-center overflow-y-scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.sideBar::-webkit-scrollbar {
+  display: none;
+}
+
+.sideBarItem {
+  @apply h-24 flex-shrink-0 font-light text-lg flex items-center justify-center opacity-50 border-r-2 border-transparent transition-all duration-500 w-full;
+
+  writing-mode: vertical-lr;
+}
+
+.sideBarItem:hover {
+  @apply selected;
+}
+
+.selected {
+  @apply opacity-100 border-brand bg-background;
+}
+
+.logo {
+  @apply flex w-12 h-12 items-center justify-center text-2xl font-semibold bg-background rounded-md text-white;
+
+  writing-mode: horizontal-tb;
+}
+
+.chip {
+  @apply inline-block text-base bg-[var(--background-light)] px-2 py-1 rounded-full;
+}
+
+.outlineButton {
+  @apply flex items-center justify-center md:text-xl font-semibold relative overflow-hidden transition-all border-2 border-brand rounded-md px-4 py-2 text-brand cursor-pointer;
+}
+
+.outlineButton::before {
+  @apply absolute -z-10 bg-brand h-full w-full -left-full -top-full transition-all;
+  content: '';
+}
+
+.outlineButton:hover {
+  @apply text-background;
+}
+
+.outlineButton:hover::before {
+  @apply left-0 top-0;
+}
+
+.standardButton {
+  @apply outline-none border-none cursor-pointer px-4 py-2 bg-brand text-background text-xl font-semibold rounded-md overflow-hidden transition-all;
+}
+
+.standardButton:hover {
+  @apply opacity-80 scale-95;
+}
+
+.dotWrapper {
+  @apply p-2 lg:p-[10px] cursor-crosshair transition-all rounded-lg hover:opacity-100 hover:bg-white hover:bg-opacity-20;
+}
