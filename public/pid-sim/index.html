@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PID SIM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      html,
+      body {
+        min-height: 100%;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-950 flex flex-col items-center">
+    <main
+      class="w-10/12 bg-white m-10 p-10 rounded-xl overflow-hidden shadow-xl">
+      <!--  -->
+
+      <div class="p-4 rounded-xl bg-slate-100">
+        <div class="flex gap-4 ">
+          <div class="flex-grow">
+            <h1 class="text-2xl">Setpoint</h1>
+            <input
+              id="setPoint"
+              type="range"
+              min="0"
+              max="100"
+              class="w-full h-2 bg-black rounded-lg appearance-none cursor-pointer" />
+          </div>
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg  px-4 bg-orange-600 shadow-lg shadow-orange-600/50 text-white hover:bg-orange-700 ring-orange-500 active:ring-2"
+            id="autoChange">
+            Auto Change: ?
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-10 p-4 rounded-xl bg-slate-100 flex gap-6">
+        <div class="flex gap-2 flex-grow bg-gray-300 rounded-xl p-2">
+          <h1 class="text-2xl flex items-center">kP</h1>
+          <input
+            type="number"
+            id="kp"
+            value="0.1"
+            class="mt-1 h-10 px-3 w-full ring-0 ring-blue-600 focus:ring-2 shadow rounded-md outline-none" />
+
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg h-full aspect-square bg-green-600 shadow-lg shadow-green-600/50 text-white hover:bg-green-700 ring-green-500 active:ring-2"
+            id="kpUp">
+            +
+          </button>
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg h-full aspect-square bg-red-600 shadow-lg shadow-red-600/50 text-white hover:bg-red-700 ring-red-500 active:ring-2"
+            id="kpDown">
+            -
+          </button>
+        </div>
+
+        <div class="flex gap-2 flex-grow bg-gray-300 rounded-xl p-2">
+          <h1 class="text-2xl flex items-center">kI</h1>
+          <input
+            type="number"
+            id="ki"
+            value="0.1"
+            class="mt-1 h-10 px-3 w-full ring-0 ring-blue-600 focus:ring-2 shadow rounded-md outline-none" />
+
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg h-full aspect-square bg-green-600 shadow-lg shadow-green-600/50 text-white hover:bg-green-700 ring-green-500 active:ring-2"
+            id="kiUp">
+            +
+          </button>
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg h-full aspect-square bg-red-600 shadow-lg shadow-red-600/50 text-white hover:bg-red-700 ring-red-500 active:ring-2"
+            id="kiDown">
+            -
+          </button>
+        </div>
+
+        <div class="flex gap-2 flex-grow bg-gray-300 rounded-xl p-2">
+          <h1 class="text-2xl flex items-center">kD</h1>
+          <input
+            type="number"
+            id="kd"
+            value="0.1"
+            class="mt-1 h-10 px-3 w-full ring-0 ring-blue-600 focus:ring-2 shadow rounded-md outline-none" />
+
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg h-full aspect-square bg-green-600 shadow-lg shadow-green-600/50 text-white hover:bg-green-700 ring-green-500 active:ring-2"
+            id="kdUp">
+            +
+          </button>
+          <button
+            class="flex sora font-semibold justify-center items-center rounded-lg h-full aspect-square bg-red-600 shadow-lg shadow-red-600/50 text-white hover:bg-red-700 ring-red-500 active:ring-2"
+            id="kdDown">
+            -
+          </button>
+        </div>
+        <button
+            class="flex sora font-semibold justify-center items-center rounded-lg  px-4 bg-red-600 shadow-lg shadow-red-600/50 text-white hover:bg-red-700 ring-red-500 active:ring-2"
+            id="resetPid">
+            Reset
+          </button>
+      </div>
+
+      <div class="mt-10 p-4 h-[40rem] relative rounded-xl bg-slate-100">
+        <canvas id="myChart"></canvas>
+      </div>
+      <!--  -->
+    </main>
+
+    <script src="
+    https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js
+    "></script>
+    <script src="app.js"></script>
+  </body>
+</html>
