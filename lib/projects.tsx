@@ -14,7 +14,7 @@ const projects: project[] = [
     imgSrc: '/project-imgs/cah.webp',
     code: 'https://github.com/DCRalph/game2',
     projectLink: 'https://game.williamgiles.co.nz',
-    tech: ['nodejs', 'express', 'socket.io', 'javascript', 'html', 'css'],
+    tech: ['nodejs', 'express', 'socket.io', 'javascript', 'html', 'tailwindcss'],
     description:
       'A web app for playing Cards Against Humanity online with friends.',
     modalContent: (
@@ -58,6 +58,20 @@ const projects: project[] = [
       </>
     ),
   },
+  {
+    title: 'PID Simulator',
+    imgSrc: '/project-imgs/pid-sim.webp',
+    projectLink: '/pid-sim/index.html',
+    code: '',
+    tech: ['javascript', 'html', 'css', 'chart.js', 'tailwindcss'],
+    description:
+      'A web app for simulating a PID controller.',
+    modalContent: (
+      <p>
+        A web app for simulating a PID controller.
+      </p>
+    ),
+  }
 ]
 
 
