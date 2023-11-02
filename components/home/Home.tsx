@@ -12,7 +12,7 @@ export const Home = () => {
     <>
       <div className="grid grid-cols-[60px,1fr] bg-gradient-to-b  from-[var(--background)] from-80% to-[var(--background-dark)]">
         <SideBar />
-        <main className=''>
+        <main>
           <Heading />
           <Hero />
           <About />
