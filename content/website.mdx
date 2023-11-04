@@ -16,24 +16,23 @@ Recently decided to redesign and revamp my site. I had a few main goals:
 
 ## Cool Features
 
-It is now posable to use the code tag to highlight code blocks. For example:
-
+It is now posable to use the `code` tag to highlight code blocks. For example:
 
 ```js {4-7} showLineNumbers title="main.js"
-const a = 2
-let b = 0
+const a = 2;
+let b = 0;
 
 for (let i = 0; i < 10; i++) {
-  b = b + a
-  console.log(a * i)
+  b = b + a;
+  console.log(a * i);
 }
 ```
 
-```js /age/#v /name/#v /setAge/#s /setName/#s /50/#i /'Taylor'/#i
-const [age, setAge] = useState(50)
-const [name, setName] = useState('Taylor')
+```js /age/#v /name/#v /setAge/#s /setName/#s /50/#i /"Taylor"/#i
+const [age, setAge] = useState(50);
+const [name, setName] = useState("Taylor");
 const x =
-  'long string to demonstrate scrollable code block. long string to demonstrate scrollable code block.'
+  "long string to demonstrate scrollable code block. long string to demonstrate scrollable code block.";
 ```
 
 ## What I used

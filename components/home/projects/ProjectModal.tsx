@@ -92,10 +92,10 @@ export const ProjectModal = ({ project, isOpen, setIsOpen }: Props) => {
             />
           </div>
 
-          <div className={'flex flex-col prose prose-invert'}>
-            <MDX code={project.body.code} />
-          </div>
+          {/* <div className={'flex flex-col prose prose-invert'}>
+          </div> */}
 
+            <MDX code={project.body.code} />
           <div className="w-full h-1 rounded-full opacity-50 bg-text mt-6"></div>
 
           {(project.codeLink != undefined ||

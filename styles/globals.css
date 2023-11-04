@@ -43,11 +43,11 @@ body {
 }
 
 .section-wrapper {
-  @apply relative z-10 max-w-7xl mx-auto px-4 md:px-24 pt-20;
+  @apply relative z-10 mx-auto max-w-7xl px-4 pt-20 md:px-24;
 }
 
 .sideBar {
-  @apply bg-background-dark h-screen sticky top-0 z-20 flex flex-col items-center overflow-y-scroll;
+  @apply sticky top-0 z-20 flex h-screen flex-col items-center overflow-y-scroll bg-background-dark;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -58,7 +58,7 @@ body {
 }
 
 .sideBarItem {
-  @apply h-24 flex-shrink-0 font-light text-lg flex items-center justify-center opacity-50 border-r-2 border-transparent transition-all duration-500 w-full;
+  @apply flex h-24 w-full flex-shrink-0 items-center justify-center border-r-2 border-transparent text-lg font-light opacity-50 transition-all duration-500;
 
   writing-mode: vertical-lr;
 }
@@ -68,26 +68,26 @@ body {
 }
 
 .selected {
-  @apply opacity-100 border-brand bg-background;
+  @apply border-brand bg-background opacity-100;
 }
 
 .logo {
-  @apply flex w-12 h-12 items-center justify-center text-2xl font-semibold bg-background rounded-md text-white;
+  @apply flex h-12 w-12 items-center justify-center rounded-md bg-background text-2xl font-semibold text-white;
 
   writing-mode: horizontal-tb;
 }
 
 .chip {
-  @apply inline-block text-base bg-[var(--background-light)] px-2 py-1 rounded-full;
+  @apply inline-block rounded-full bg-[var(--background-light)] px-2 py-1 text-base;
 }
 
 .outlineButton {
-  @apply flex items-center justify-center md:text-xl font-semibold relative overflow-hidden transition-all border-2 border-brand rounded-md px-4 py-2 text-brand cursor-pointer;
+  @apply relative flex cursor-pointer items-center justify-center overflow-hidden rounded-md border-2 border-brand px-4 py-2 font-semibold text-brand transition-all md:text-xl;
 }
 
 .outlineButton::before {
-  @apply absolute -z-10 bg-brand h-full w-full -left-full -top-full transition-all;
-  content: '';
+  @apply absolute -left-full -top-full -z-10 h-full w-full bg-brand transition-all;
+  content: "";
 }
 
 .outlineButton:hover {
@@ -99,41 +99,16 @@ body {
 }
 
 .standardButton {
-  @apply outline-none border-none cursor-pointer px-4 py-2 bg-brand text-background text-xl font-semibold rounded-md overflow-hidden transition-all;
+  @apply cursor-pointer overflow-hidden rounded-md border-none bg-brand px-4 py-2 text-xl font-semibold text-background outline-none transition-all;
 }
 
 .standardButton:hover {
-  @apply opacity-80 scale-95;
+  @apply scale-95 opacity-80;
 }
 
 .dotWrapper {
-  @apply p-2 lg:p-[10px] cursor-crosshair transition-all rounded-lg hover:opacity-100 hover:bg-white hover:bg-opacity-20;
+  @apply cursor-crosshair rounded-lg p-2 transition-all hover:bg-white hover:bg-opacity-20 hover:opacity-100 lg:p-[10px];
 }
-
-/*  */
-
-.prose .anchor {
-  @apply absolute -left-10 flex w-10 translate-x-4 scale-75 transform cursor-pointer items-center justify-center no-underline opacity-0 transition-transform;
-}
-
-
-.anchor:hover {
-  @apply visible;
-}
-
-.prose a {
-  @apply decoration-neutral-400 decoration-[0.1em] underline-offset-2 transition-all dark:decoration-neutral-600;
-}
-
-.prose .anchor:after {
-  @apply text-neutral-300 dark:text-neutral-700;
-  content: "#";
-}
-
-.prose *:hover > .anchor {
-  @apply transform-none opacity-100;
-}
-
 
 /*  */
 
@@ -169,11 +144,11 @@ pre > code {
   color: gray;
 }
 
-code[data-line-numbers-max-digits='2'] > [data-line]::before {
+code[data-line-numbers-max-digits="2"] > [data-line]::before {
   width: 2rem;
 }
 
-code[data-line-numbers-max-digits='3'] > [data-line]::before {
+code[data-line-numbers-max-digits="3"] > [data-line]::before {
   width: 3rem;
 }
 
@@ -202,14 +177,14 @@ code[data-line-numbers-max-digits='3'] > [data-line]::before {
   @apply !text-inherit;
 }
 
-[data-chars-id='v'] {
+[data-chars-id="v"] {
   @apply border-b-pink-600 bg-rose-800/50 font-bold !text-pink-300;
 }
 
-[data-chars-id='s'] {
+[data-chars-id="s"] {
   @apply border-b-yellow-600 bg-yellow-800/50 font-bold !text-yellow-300;
 }
 
-[data-chars-id='i'] {
+[data-chars-id="i"] {
   @apply border-b-purple-600 bg-purple-800/50 font-bold !text-purple-200;
 }

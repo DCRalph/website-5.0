@@ -26,7 +26,7 @@ export interface INewRoundedImageProps {
 const CustomLink = ({ href, children, ...rest }: TCustomLink) => {
   if (href && href.startsWith('#')) {
     return (
-      <a href={href} {...rest} className="decoration-brand">
+      <a href={href} {...rest} className="bg-brand bg-opacity-20 rounded p-1">
         {children}
       </a>
     )
@@ -37,13 +37,13 @@ const CustomLink = ({ href, children, ...rest }: TCustomLink) => {
         target="_blank"
         rel="noopener noreferrer"
         {...rest}
-        className="decoration-brand">
+        className="bg-brand bg-opacity-20 rounded p-1">
         {children}
       </a>
     )
   } else {
     return (
-      <Link href={href || '#'} {...rest} className="decoration-brand">
+      <Link href={href || '#'} {...rest} className="bg-brand bg-opacity-20 rounded p-1">
         {children}
       </Link>
     )
@@ -90,7 +90,7 @@ export function MDX({ code }: { code: string }) {
   const Component = useMDXComponent(code)
 
   return (
-    <article className="prose-quoteless prose prose-neutral relative dark:prose-invert">
+    <article className="prose-quoteless prose relative prose-invert">
       <Component components={{ ...components }} />
       {/* <Component components={{ a: CustomLink }} /> */}
     </article>
