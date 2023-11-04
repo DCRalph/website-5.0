@@ -6,27 +6,18 @@ import Image from 'next/image'
 import { AiFillGithub, AiOutlineExport } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 
+import DateText from '@/components/utils/DateText'
+
+import { ProjectMDX } from 'contentlayer/generated'
+import { MDX } from '@/components/utils/MDX'
+
 interface Props {
   isOpen: boolean
   setIsOpen: Function
-  title: string
-  imgSrc: string
-  code: string
-  projectLink: string
-  tech: string[]
-  modalContent: JSX.Element
+  project: ProjectMDX
 }
 
-export const ProjectModal = ({
-  modalContent,
-  projectLink,
-  setIsOpen,
-  imgSrc,
-  isOpen,
-  title,
-  code,
-  tech,
-}: Props) => {
+export const ProjectModal = ({ project, isOpen, setIsOpen }: Props) => {
   const [isClosing, setIsClosing] = useState(false)
 
   useEffect(() => {
@@ -79,47 +70,55 @@ export const ProjectModal = ({
         /> */}
 
         <Image
-          src={imgSrc}
-          alt={`An image of the ${title} project.`}
+          src={project.coverImage}
+          alt={`An image of the ${project.title} project.`}
           width={10000}
           height={10000}
           className="w-full"
         />
         <div className={'p-6'}>
-          <h4 className="text-4xl font-semibold">{title}</h4>
+          <h4 className="text-4xl font-semibold">{project.title}</h4>
           <div
             className={
-              'flex flex-wrap gap-4 text-brand font-semibold text-lg mt-2 mb-6'
+              'flex flex-wrap gap-4 text-brand font-semibold text-lg mt-2 mb-2'
             }>
-            {tech.join(' - ')}
+            {project.techArr.join(' - ')}
           </div>
 
-          <div className={'flex flex-col prose prose-invert'}>
-            {modalContent}
+          <div className="flex flex-wrap gap-4 text-white  text-base mb-6">
+            <DateText
+              publishedAt={project.publishedAt}
+              updatedAt={project.updatedAt}
+            />
           </div>
 
+          {/* <div className={'flex flex-col prose prose-invert'}>
+          </div> */}
+
+            <MDX code={project.body.code} />
           <div className="w-full h-1 rounded-full opacity-50 bg-text mt-6"></div>
 
-          {(code != '' || projectLink != '') && (
+          {(project.codeLink != undefined ||
+            project.projectLink != undefined) && (
             <div className={'mt-2'}>
               <p className={'text-2xl font-semibold'}>
                 Project Links<span className="text-brand">.</span>
               </p>
               <div className={'flex items-center gap-4 text-lg text-brand'}>
-                {code != '' && (
+                {project.codeLink != undefined && (
                   <Link
                     target="_blank"
                     rel="nofollow"
-                    href={code}
+                    href={project.codeLink}
                     className="flex items-center gap-2 hover:underline">
                     <AiFillGithub /> source code
                   </Link>
                 )}
-                {projectLink != '' && (
+                {project.projectLink != undefined && (
                   <Link
                     target="_blank"
                     rel="nofollow"
-                    href={projectLink}
+                    href={project.projectLink}
                     className="flex items-center gap-2 hover:underline">
                     <AiOutlineExport /> live project
                   </Link>

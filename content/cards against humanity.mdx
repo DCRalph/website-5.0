@@ -1,0 +1,37 @@
+---
+title: Cards Against Humanity
+publishedAt: 17/5/2023
+coverImage: /project-imgs/cah/cover.png
+projectLink: https://game.dcralph.com
+codeLink: https://github.com/DCRalph/game2
+description: Cards Against Humanity game online
+tech: HTML\ CSS\ JS\ Node\ Express\ Socket.io
+---
+
+## What it is
+
+I made a web app for playing Cards Against Humanity online with friends. It's a simple web app that uses websockets to communicate between players. It's a fun game to play with friends and I wanted to make it easier to play online.
+
+The web app was designed in a way where I can add more games in the future. I plan to add more games in the future.
+
+## How it works
+
+The backend is a Express JS server that uses websockets to communicate with the frontend. The frontend is plain HTML, CSS and JS.
+
+The games are stored in a directory and the server loads them dynamically. The server also loads the game's assets dynamically.
+
+Each game has a backend file and frontend files. The backend file is used to handle the game logic and the frontend files contain the HTML, CSS and client side JS for the game.
+
+The server also has a lobby system where players can create and join lobbies. The lobbies are used to keep track of the players and the game state.
+
+## How I did it
+
+I used Express JS for the backend and plain HTML, CSS and JS for the frontend. I used websockets to communicate between the frontend and backend.
+
+I used [socket.io](https://socket.io/) for the websockets. I created my own wrapper around socket.io to make it easier to use. It takes advantage of rooms for each lobby.
+
+Its not the the most secure because it sends out the game state to all the players. This means that players can cheat by looking at the game state. I plan to fix this in the future. My thinking was it most likely won't be a problem because the players are plaing on mobile devices whitch make it harder to look at the game state.
+
+## What I learned
+
+I learned how to use websockets and how to use socket.io.

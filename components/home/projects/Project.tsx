@@ -6,25 +6,9 @@ import { useEffect, useRef, useState } from 'react'
 import { AiFillGithub, AiOutlineExport } from 'react-icons/ai'
 import { ProjectModal } from './ProjectModal'
 
-interface Props {
-  modalContent: JSX.Element
-  description: string
-  projectLink: string
-  imgSrc: string
-  tech: string[]
-  title: string
-  code: string
-}
+import { ProjectMDX } from 'contentlayer/generated'
 
-export const Project = ({
-  modalContent,
-  projectLink,
-  description,
-  imgSrc,
-  title,
-  code,
-  tech,
-}: Props) => {
+export const Project = (project: ProjectMDX) => {
   const [hovered, setHovered] = useState(false)
 
   const [isOpen, setIsOpen] = useState(false)
@@ -33,6 +17,14 @@ export const Project = ({
 
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+
+  // let modalContent = project.body
+  // let projectLink = project.projectLink
+  // let code = project.codeLink
+  // let description = project.description
+  // let imgSrc = project.coverImage
+  // let title = project.title
+  // let tech = project.tech
 
   useEffect(() => {
     if (isInView) {
@@ -60,17 +52,9 @@ export const Project = ({
           className={
             'w-full aspect-video bg-background-light cursor-pointer relative rounded-lg overflow-hidden'
           }>
-          {/* <img
-            src={imgSrc}
-            alt={`An image of the ${title} project.`}
-            style={{
-              width: hovered ? "95%" : "90%",
-              rotate: hovered ? "2deg" : "0deg",
-            }}
-          /> */}
           <Image
-            src={imgSrc}
-            alt={`An image of the ${title} project.`}
+            src={project.coverImage}
+            alt={`An image of the ${project.title} project.`}
             width={10000}
             height={10000}
             className="w-10/12 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-5 transition-all rounded-t-lg"
@@ -84,18 +68,26 @@ export const Project = ({
           <Reveal width="100%">
             <div className={'flex items-center gap-4'}>
               <h4 className="font-bold text-lg xl:text-2xl shrink-0 max-w-[calc(100%-120px)]">
-                {title}
+                {project.title}
               </h4>
               <div className={'w-full h-1 rounded-full bg-text opacity-30'} />
 
-              {code != '' && (
-                <Link href={code} target="_blank" rel="nofollow" className='transition-all hover:text-brand'>
+              {project.codeLink != undefined && (
+                <Link
+                  href={project.codeLink}
+                  target="_blank"
+                  rel="nofollow"
+                  className="transition-all hover:text-brand">
                   <AiFillGithub size="2rem" />
                 </Link>
               )}
 
-              {projectLink != '' && (
-                <Link href={projectLink} target="_blank" rel="nofollow" className='transition-all hover:text-brand'>
+              {project.projectLink != undefined && (
+                <Link
+                  href={project.projectLink}
+                  target="_blank"
+                  rel="nofollow"
+                  className="transition-all hover:text-brand">
                   <AiOutlineExport size="2rem" />
                 </Link>
               )}
@@ -104,12 +96,12 @@ export const Project = ({
           <Reveal>
             <div
               className={'flex flex-wrap gap-2 text-brand my-2 font-semibold'}>
-              {tech.join(' - ')}
+              {project.techArr.join(' - ')}
             </div>
           </Reveal>
           <Reveal>
             <p className={'text-lg'}>
-              {description}{' '}
+              {project.description}{' '}
               <span
                 onClick={() => setIsOpen(true)}
                 className=" cursor-pointer font-semibold text-brand hover:underline">
@@ -119,16 +111,7 @@ export const Project = ({
           </Reveal>
         </div>
       </motion.div>
-      <ProjectModal
-        modalContent={modalContent}
-        projectLink={projectLink}
-        setIsOpen={setIsOpen}
-        isOpen={isOpen}
-        imgSrc={imgSrc}
-        title={title}
-        code={code}
-        tech={tech}
-      />
+      <ProjectModal project={project} isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }
