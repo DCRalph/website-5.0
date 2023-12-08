@@ -1,61 +1,71 @@
-import * as React from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useMDXComponent } from 'next-contentlayer/hooks'
+import * as React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useMDXComponent } from "next-contentlayer/hooks";
 
-export interface ICalloutProps {
-  emoji: string
-  children: React.ReactNode
+interface ICalloutProps {
+  emoji: string;
+  children: React.ReactNode;
 }
 
-export type TCustomLink = React.PropsWithChildren<{
-  href?: string
+type TCustomLink = React.PropsWithChildren<{
+  href?: string;
 }> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>
+  React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export interface IRoundedImageProps {
-  alt: string
-  src: string
+interface IRoundedImageProps {
+  alt: string;
+  src: string;
 }
 
-export interface INewRoundedImageProps {
-  alt?: string
-  src?: string
+interface INewRoundedImageProps {
+  alt?: string;
+  src?: string;
+}
+
+interface IRoundedImgProps {
+  src?: string;
+  alt?: string;
 }
 
 const CustomLink = ({ href, children, ...rest }: TCustomLink) => {
-  if (href && href.startsWith('#')) {
+  if (href && href.startsWith("#")) {
     return (
-      <a href={href} {...rest} className="bg-brand bg-opacity-20 rounded p-1">
+      <a href={href} {...rest} className="rounded bg-brand bg-opacity-20 p-1">
         {children}
       </a>
-    )
-  } else if (href && href.startsWith('http')) {
+    );
+  } else if (href && href.startsWith("http")) {
     return (
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
         {...rest}
-        className="bg-brand bg-opacity-20 rounded p-1">
+        className="rounded bg-brand bg-opacity-20 p-1"
+      >
         {children}
       </a>
-    )
+    );
   } else {
     return (
-      <Link href={href || '#'} {...rest} className="bg-brand bg-opacity-20 rounded p-1">
+      <Link
+        href={href || "#"}
+        {...rest}
+        className="rounded bg-brand bg-opacity-20 p-1"
+      >
         {children}
       </Link>
-    )
+    );
   }
-}
+};
 
 function RoundedImage(props: IRoundedImageProps) {
-  const { src, alt } = props
+  const { src, alt } = props;
 
   const newProps: INewRoundedImageProps = {
     ...props,
-  }
+  };
 
   return (
     <Image
@@ -66,8 +76,26 @@ function RoundedImage(props: IRoundedImageProps) {
       className="w-full rounded-lg shadow-lg dark:shadow-neutral-900"
       {...newProps}
     />
-  )
-  // return <span>test</span>
+  );
+}
+
+function RoundedImg(props: IRoundedImgProps) {
+  const { src, alt } = props;
+
+  // console.log("props", props);
+
+  if (src === undefined) return <></>;
+  if (alt === undefined) return <></>;
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={10000}
+      height={10000}
+      className="w-full rounded-lg shadow-lg dark:shadow-neutral-900"
+    />
+  );
 }
 
 const Callout = (props: ICalloutProps) => {
@@ -76,23 +104,33 @@ const Callout = (props: ICalloutProps) => {
       <div className="mr-4 flex w-4 items-center">{props.emoji}</div>
       <div className="callout w-full">{props.children}</div>
     </div>
-  )
-}
+  );
+};
+
+const Code = (props: any) => {
+  console.log("props", props);
+  const { children } = props;
+  return (
+    <code className="not-prose rounded bg-black bg-opacity-30 p-1 font-mono font-semibold text-white">
+      {children}
+    </code>
+  );
+};
 
 const components = {
   a: CustomLink,
   Image: RoundedImage,
-  // img: RoundedImage,
+  img: RoundedImg,
   Callout: Callout,
-}
+  // code: Code,
+};
 
 export function MDX({ code }: { code: string }) {
-  const Component = useMDXComponent(code)
+  const Component = useMDXComponent(code);
 
   return (
-    <article className="prose-quoteless prose relative prose-invert">
+    <article className="prose-quoteless prose prose-invert relative">
       <Component components={{ ...components }} />
-      {/* <Component components={{ a: CustomLink }} /> */}
     </article>
-  )
+  );
 }
