@@ -16,6 +16,10 @@ const me = {
     "NodeJS",
     "Linux",
     "Docker",
+    "C++",
+    "Python",
+    "Proxmox",
+    
     
   ]
 }
