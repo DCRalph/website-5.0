@@ -23,6 +23,7 @@ const experience: Experience[] = [
       'Arduino',
       'AWS',
       'Firebase',
+      'Git'
     ],
   },
 ]
