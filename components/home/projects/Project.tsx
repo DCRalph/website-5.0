@@ -2,13 +2,18 @@ import { Reveal } from "@/components/utils/Reveal";
 import { useAnimation, useInView, motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { AiFillGithub, AiOutlineExport } from "react-icons/ai";
 import { ProjectModal } from "./ProjectModal";
 
 import { ProjectMDX } from "contentlayer/generated";
 
-export const Project = (project: ProjectMDX) => {
+interface ProjectProps {
+  project: ProjectMDX;
+  shouldOpen: boolean;
+}
+
+export const Project = ({ project, shouldOpen }: ProjectProps) => {
   const [hovered, setHovered] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -18,14 +23,6 @@ export const Project = (project: ProjectMDX) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
-  // let modalContent = project.body
-  // let projectLink = project.projectLink
-  // let code = project.codeLink
-  // let description = project.description
-  // let imgSrc = project.coverImage
-  // let title = project.title
-  // let tech = project.tech
-
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
@@ -33,6 +30,12 @@ export const Project = (project: ProjectMDX) => {
       controls.start("hidden");
     }
   }, [isInView, controls]);
+
+  useEffect(() => {
+    if (shouldOpen) {
+      setIsOpen(true);
+    }
+  }, [shouldOpen]);
 
   return (
     <>
