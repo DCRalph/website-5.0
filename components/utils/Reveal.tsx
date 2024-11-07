@@ -32,11 +32,11 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
         }}
         initial="hidden"
         animate={mainControls}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: 0.5 }}
       >
         {children}
       </motion.div>
-      <motion.div
+      {/* <motion.div
         variants={{
           hidden: { left: 0 },
           visible: { left: "100%" },
@@ -53,7 +53,7 @@ export const Reveal = ({ children, width = "fit-content" }: Props) => {
           background: "var(--brand)",
           zIndex: 20,
         }}
-      />
+      /> */}
     </div>
   );
 };

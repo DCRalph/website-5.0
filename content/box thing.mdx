@@ -1,0 +1,68 @@
+---
+title: Box Thing
+publishedAt: 15/8/2024
+coverImage: /project-imgs/box-thing/cover.webp
+codeLink: https://github.com/DCRalph/esp32-remote/tree/main/Box%20Thing%20v2
+description: Small ESP32 project to control Home Assistant with a remote
+tech: ESP32\ C++\ PlatformIO
+---
+
+# ESP32 Remote Controller: A Multi-Purpose IoT Device for Home Automation
+
+In my journey of creating versatile electronics, I recently completed a small but powerful device I call the **ESP32 Remote Controller**. This project combines custom hardware design with ESP32 capabilities, allowing me to control various smart devices in my setup, including integrations with **Home Assistant** and other ESP32 projects through **ESP-NOW** communication.
+
+## Project Overview
+
+The ESP32 Remote Controller is a compact, hand-held device built around the **ESP32-S3** microcontroller. It features a **1.4-inch OLED display** and a **rotary encoder** for user-friendly navigation. Designed with flexibility in mind, this device can fit neatly into a off the shelf enclosure, but its adaptable design also makes it suitable for other projects. 
+
+This project has been particularly fulfilling, as I designed not only the device's functionality but also the **circuit board (PCB)** from scratch. 
+
+### Key Features
+
+- **Microcontroller**: The device is powered by an ESP32-S3, providing robust processing power for IoT tasks.
+- **OLED Display**: A 1.4-inch OLED for displaying the interface, connected via a header strip that also serves as the **UART programming interface**.
+- **Rotary Encoder**: The main control input is a rotary encoder, which is used for navigation and powers on the device with a simple press.
+- **Battery Power and Protection**: It’s equipped with a **1S 3.7V LiPo battery**, along with a battery protection and charging circuit, ensuring safe and reliable power management.
+- **Ultra-Low Power Mode**: The PCB draws zero current when off, preserving battery life for extended use.
+- **Battery Voltage Monitoring**: Integrated circuitry allows real-time monitoring of battery levels, which is displayed on the OLED screen.
+- **Multi-Purpose Design**: While designed around a specific enclosure, the PCB is adaptable for other projects, thanks to additional GPIO headers.
+
+## How It Works
+
+The ESP32 Remote connects to my smart home setup through **ESP-NOW**, a wireless protocol designed for low-power, direct communication between ESP32 devices. This allows me to control various devices integrated into **Home Assistant**, from lighting and temperature to ESP32-based devices scattered around my home. 
+
+When powered on, the OLED screen provides a clear interface for navigation. The rotary encoder makes menu selection intuitive, allowing me to toggle between functions or make adjustments with ease. The interface displays essential information, such as battery levels, connection status, and control options.
+
+## Hardware Design Process
+
+The ESP32 Remote Controller’s PCB was designed with versatility as a priority. Some notable design choices include:
+
+- **Low Power Consumption**: I optimised the board to draw no current when powered off, enhancing the device’s battery life.
+- **Universal Connectivity**: I included GPIO headers to allow additional modules or sensors to be connected, giving the PCB multi-purpose functionality beyond just this remote.
+- **Integrated Power Management**: The board’s charging and battery protection circuits are crucial for a safe and long-lasting device, as they protect the LiPo battery from overcharging or deep discharge.
+- **Dual Function OLED Connector**: The OLED connector doubles as the UART programming interface, making firmware updates straightforward without needing extra wiring or connectors.
+
+## Future Applications and Enhancements
+
+This project has opened up several possibilities for further experimentation and features:
+
+- **Expanded Home Assistant Integrations**: Adding more custom controls and automations for various devices around the house.
+- **Additional Input Methods**: Integrating other input methods, such as tactile buttons, to enhance the device’s interactivity.
+- **Battery Optimisation**: Although the device already has low power consumption, further optimisations could extend battery life even more.
+
+## Gallery of the ESP32 Remote Controller
+
+Here are some images showcasing the ESP32 Remote Controller in action:
+
+- **Device Overview**: ![Photo of device](/project-imgs/box-thing/device.webp)
+- **Main Menu Display**: ![Showing the menu](/project-imgs/box-thing/menu.webp)
+- **Number Adjustment Screen**: ![Menu option to change numbers](/project-imgs/box-thing/edit-number.webp)
+- **Toggle Options in Menu**: ![Toggle options in menu](/project-imgs/box-thing/toggles.webp)
+- **ESP-NOW Relay Control Interface**: ![ESP-NOW relay control](/project-imgs/box-thing/esp-now-relay.webp)
+- **Custom PCB**: ![Photo of PCB](/project-imgs/box-thing/pcb.webp) ![Photo of PCB](/project-imgs/box-thing/pcb2.webp)
+
+## Conclusion
+
+The ESP32 Remote Controller has proven to be a flexible and reliable tool in my smart home setup. Building it from scratch has been a rewarding challenge, especially designing the PCB to be as functional and versatile as possible. As I continue to explore its potential, I look forward to integrating it into even more projects and seeing how it can evolve. 
+
+With the ESP32 Remote, I’ve not only created a tool for my own use but also added a unique project to my portfolio, showcasing my skills in electronics design, IoT, and embedded programming.

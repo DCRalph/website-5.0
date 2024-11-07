@@ -17,6 +17,7 @@ const me = {
     "C++",
     "Python",
     "Proxmox",
+    "Swift"
   ],
 };
 

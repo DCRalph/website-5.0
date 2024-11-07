@@ -72,7 +72,7 @@ export const Project = ({ project, shouldOpen }: ProjectProps) => {
         <div className={"my-4"}>
           <Reveal width="100%">
             <div className={"flex items-center gap-4"}>
-              <h4 className="max-w-[calc(100%-120px)] shrink-0 text-lg font-bold xl:text-2xl">
+              <h4 className="max-w-[calc(100%-120px)] shrink-0 whitespace-nowrap text-lg font-bold xl:text-2xl">
                 {project.title}
               </h4>
               <div className={"h-1 w-full rounded-full bg-text opacity-30"} />
@@ -112,7 +112,7 @@ export const Project = ({ project, shouldOpen }: ProjectProps) => {
               {project.description}{" "}
               <span
                 onClick={() => setIsOpen(true)}
-                className=" cursor-pointer font-semibold text-brand hover:underline"
+                className=" cursor-pointer whitespace-nowrap font-semibold text-brand hover:underline"
               >
                 Learn more {">"}
               </span>

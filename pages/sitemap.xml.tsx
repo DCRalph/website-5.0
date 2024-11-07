@@ -53,7 +53,7 @@ export async function getServerSideProps({
         lastMod = date.toISOString();
       }
 
-      console.log("lastMod:", lastMod);
+      // console.log("lastMod:", lastMod);
 
       return `
     <url>
