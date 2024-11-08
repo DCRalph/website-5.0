@@ -19,6 +19,19 @@ const me = {
     "Proxmox",
     "Swift"
   ],
+
+  workTech: [
+    'C++',
+    'Python',
+    'Raspberry Pi',
+    'ESP32',
+    'Arduino',
+    'AWS',
+    'Firebase',
+    'Git',
+    "Tensorflow",
+    "ERPNext"
+  ],
 };
 
 export default me;

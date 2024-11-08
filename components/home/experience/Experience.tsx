@@ -7,8 +7,8 @@ export const Experience = () => {
   return (
     <section className="section-wrapper" id="experience">
       <SectionHeader title="Experience" dir="l" />
-      {experience.map((item) => (
-        <ExperienceItem key={item.title} {...item} />
+      {experience.slice().reverse().map((item) => (
+      <ExperienceItem key={item.title} {...item} />
       ))}
     </section>
   )

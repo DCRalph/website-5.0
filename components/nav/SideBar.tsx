@@ -8,7 +8,7 @@ export const SideBar = () => {
     const sections = document.querySelectorAll('.section-wrapper')
 
     const options = {
-      threshold: 0.3,
+      threshold: 0.5,
     }
 
     const callback = (entries: any) => {

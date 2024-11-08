@@ -4,28 +4,11 @@ import { Reveal } from '@/components/utils/Reveal'
 import { experience } from '@/lib/experience'
 import { me } from '@/lib/me'
 
-const work = experience[0]
+// const work = experience[0]
 
 export const Stats = () => {
   return (
     <div className={'relative'}>
-      <Reveal>
-        <div>
-          <h4 className="flex items-center mb-4 mt-8 md:mt-0 text-2xl font-bold gap-4">
-            <AiFillCode size="2rem" color="var(--brand)" />
-            <span>Use at work</span>
-          </h4>
-          <div className={'flex flex-wrap gap-2 mb-8'}>
-            {/* <span className="chip">test</span> */}
-
-            {work.tech.map((item, i) => (
-              <span key={i} className="chip">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </Reveal>
       <Reveal>
         <div>
           <h4 className="flex items-center mb-4 text-2xl font-bold gap-4">
@@ -41,6 +24,24 @@ export const Stats = () => {
           </div>
         </div>
       </Reveal>
+      <Reveal>
+        <div>
+          <h4 className="flex items-center mb-4 mt-8 md:mt-0 text-2xl font-bold gap-4">
+            <AiFillCode size="2rem" color="var(--brand)" />
+            <span>Use at work</span>
+          </h4>
+          <div className={'flex flex-wrap gap-2 mb-8'}>
+            {/* <span className="chip">test</span> */}
+
+            {me.workTech.map((item, i) => (
+              <span key={i} className="chip">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+
     </div>
   )
 }
