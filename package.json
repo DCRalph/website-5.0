@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/node": "20.8.10",
     "@types/react-dom": "18.2.14",
+    "@types/react": "18.2.34",
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.1",
     "animejs": "^3.2.1",
@@ -32,7 +33,6 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "@types/animejs": "^3.1.10",
-    "@types/react": "19.1.7",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "prettier-plugin-tailwindcss": "^0.4.1",
