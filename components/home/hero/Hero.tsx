@@ -18,7 +18,7 @@ export const Hero = () => {
         </Reveal>
         <Reveal>
           <p className={'max-w-xl text-lg backdrop-blur rounded-lg'}>
-            I&apos;ve spent the last 6 years learning and tinkering with
+            I&apos;ve spent the last 10 years learning and tinkering with
             different technologies. That has led me to where I am today,
             studying a Software Engineering degree at Yoobee Colleage.
           </p>

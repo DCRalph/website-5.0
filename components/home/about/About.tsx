@@ -34,10 +34,7 @@ export const About = () => {
           <Reveal>
             <p className={"font-light mb-6"}>
               I currently work for Bactosure as a Software Engineer, building
-              software for testing water quality.
-              {/* Google on Google Photos. I also toss in my ¢2
-              with the design systems teams from time to time (once an artist,
-              always an artist, amirite?). */}
+              software for testing water for bacteria.
             </p>
           </Reveal>
           <Reveal>
