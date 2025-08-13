@@ -1,0 +1,261 @@
+---
+title: ESP32 Car LED Controller
+publishedAt: 6/1/2025
+coverImage: /project-imgs/esp32-car-led/pcb-front.webp
+codeLink: https://github.com/DCRalph/ESP32-Tail-Lights
+description: A comprehensive LED lighting system for vehicles using ESP32 microcontrollers and WS2812B LED strips with wireless control and multi-device synchronization
+tech: ESP32\ C++\ PlatformIO\ WS2812B\ ESP-NOW\ Custom PCB
+---
+
+# ESP32 Car LED Controller: Advanced Vehicle Lighting System
+
+I've been working on an exciting project that combines my passion for electronics, cars, and embedded programming. The **ESP32 Car LED Controller** is a fully fledged lighting system that transforms any vehicle into looking like a Porche from behind with audi headlights. It's complete with wireless control and synchronization between multiple cars.
+
+## What Makes This Special?
+
+This isn't just another LED strip controller. It's a complete ecosystem designed specifically for automotive applications, featuring:
+
+- **Multi-strip support** for headlights, taillights, underglow, and interior lighting
+- **Vehicle integration** with direct 12V inputs from brake, reverse, indicators, and accessories
+- **Wireless synchronization** between multiple vehicles using ESP-NOW protocol
+- **Custom PCB design** optimized for automotive environments
+- **Advanced effects library** with everything from night rider effects to color changing patterns
+- **Real-time performance monitoring** with microsecond-precision timing
+
+![ESP32 Car LED Controller in action](/project-imgs/esp32-car-led/action-shot.webp)
+
+## The Hardware: Custom PCB Design
+
+One of the most challenging and rewarding aspects of this project was designing a custom PCB specifically for controlling four LED strips in a car environment. The board handles:
+
+- **High-voltage inputs** from the vehicle's electrical system (12V ACC, brake, reverse, indicators)
+- **Level shifting** from 12V automotive signals to 3.3V logic levels
+- **Multiple LED strip outputs** with proper power distribution
+- **ESP32 integration** with optimized power management
+- **Robust connector systems** for automotive vibration and temperature ranges
+- **Built in oled screen** for displaying information and settings
+
+The PCB is designed to be the perfect interface between your car's electrical system and the ESP32's capabilities, eliminating the need for complex wiring.
+
+![Custom PCB front view](/project-imgs/esp32-car-led/pcb-front.webp)
+![Custom PCB back view](/project-imgs/esp32-car-led/pcb-back.webp)
+![PCB schematic diagram](/project-imgs/esp32-car-led/pcb-schem.webp)
+
+## Software
+
+The software is architected for real-time performance and reliability
+
+### Core Features
+
+- **Multi-core utilization** leveraging both ESP32 cores for optimal performance
+- **Priority-based effect rendering** ensuring critical functions like brake lights always work and ensuring if you press the brake the brake lights will come on
+- **Modular effect system** making it easy to add new lighting effect
+- **Comprehensive wireless protocol** for remote control and synchronization
+
+### Lighting Effects Library
+
+The system includes an extensive collection of effects:
+
+- **Standard automotive functions** (brake, reverse, indicators) with enhanced animations
+- **Start up animation** for when the car is unlocked and started
+- **RGB cycling patterns** for show-off moments
+- **Night Rider effect** for that classic KITT car feel
+- **Police mode** with authentic emergency patterns
+- **Aurora effects** for stunning ambient lighting
+- **Pulse wave patterns** for rhythmic displays
+
+{/* ![Night Rider effect demonstration](/project-imgs/esp32-car-led/night-rider-effect.webp) */}
+
+## Multi-Vehicle Synchronization
+
+One of the coolest features is the ability to synchronize multiple vehicles. Using ESP-NOW protocol, cars can:
+
+- **Automatically discover** other ESP32 LED controllers nearby
+- **Create a group** with other cars
+- **Mirror lighting effects** across all connected vehicles in the group
+- **Handle disconnections gracefully** without system crashes
+
+Imagine driving around with your friends and having all your cars synchronize their light!
+
+![Multiple cars with synchronized effects](/project-imgs/esp32-car-led/synchronized-cars.webp)
+
+## Wireless Remote Controller
+
+To make controlling the system even more convenient, I've developed a dedicated handheld wireless controller using another ESP32 device. This isn't just a simple remote - it's a full-featured control interface with an OLED display and rotary encoder navigation.
+
+### The Remote Controller Hardware
+
+The wireless controller is built around my [Box Thing v2 project](https://github.com/DCRalph/esp32-remote/tree/main/Box%20Thing%20v2) - a compact ESP32-S3 based device featuring:
+
+- **1.4-inch OLED display** for clear menu navigation and status display
+- **Rotary encoder** for intuitive menu control and power-on functionality
+- **Custom PCB design** with ultra-low power consumption (zero current when off)
+- **Integrated battery management** with 1S 3.7V LiPo and protection circuitry
+- **Real-time battery monitoring** displayed on screen
+- **Dual-purpose connector** serving as both OLED interface and UART programming port
+
+![Wireless controller device](/project-imgs/esp32-car-led/controller-menu.webp)
+
+### Comprehensive Control Features
+
+The wireless controller provides full access to every aspect of the car LED system:
+
+#### Device Management
+
+- **Multi-device support** - control up to 3 different car controllers
+- **Real-time connection status** with visual indicators
+- **Device capability detection** automatically discovers available LED strips
+- **Mode switching** between Normal, Test, Remote, and Off modes
+- **Effect selection** for all lighting patterns (RGB, Night Rider, Police, etc.)
+
+#### Advanced Sync Management
+
+The controller includes a sophisticated interface for managing multi-vehicle synchronization:
+
+- **Device discovery** showing all nearby ESP32 LED controllers
+- **Group management** with create, join, and leave functionality
+- **Master election monitoring** with real-time sync status
+- **Auto-join/auto-create** settings for seamless group formation
+- **Connection quality monitoring** with last-seen timestamps
+
+![Wireless controller menu system]((/project-imgs/esp32-car-led/controller-device-mgmt.webp)
+
+### Real-Time Statistics and Monitoring
+
+For development and troubleshooting, the controller provides detailed performance metrics:
+
+- **Loop frequency monitoring** showing up to 30,000 operations per second
+- **Timing breakdowns** for input processing, sync operations, and effect rendering
+- **Network statistics** with packet success rates and latency measurements
+- **Battery level tracking** with real-time voltage display
+
+### ESP-NOW Communication Protocol
+
+The wireless communication uses a custom protocol over ESP-NOW, featuring:
+
+- **Bidirectional communication** with command acknowledgments
+- **Structured data packets** for complex effect configurations
+- **Automatic device discovery** and capability negotiation
+- **Robust error handling** with connection timeouts and retries
+
+### Practical Usage
+
+The wireless controller transforms the user experience:
+
+- **Walk-around control** - adjust your car's lighting from outside the vehicle
+- **Group coordination** - easily sync multiple cars at meets and events
+- **Quick mode switching** - instantly change from normal driving to show mode
+- **Status monitoring** - check system health and battery levels at a glance
+- **Effect testing** - try new lighting patterns without getting in the car
+
+The battery life extends for days of normal use, and the ultra-low power design means it draws zero current when powered off. The rotary encoder provides satisfying tactile feedback, while the OLED display shows clear, organized menus even in bright sunlight.
+
+This wireless controller really completes the system - turning what could be a complex embedded project into something that feels like a professional automotive accessory. It's the perfect example of how good user interface design can make advanced technology feel intuitive and accessible.
+
+## Installation and Integration
+
+The system is designed for easy installation:
+
+### Hardware Installation
+
+1. **Mount the custom PCB** in a suitable location in your vehicle
+2. **Connect LED strips** to the four output channels
+3. **Wire automotive inputs** (brake, reverse, indicators, 12V ACC)
+4. **Secure all connections** with automotive-grade connectors
+
+{/* ![Installation in vehicle](/project-imgs/esp32-car-led/installation-process.webp) */}
+{/* ![Wiring diagram](/project-imgs/esp32-car-led/wiring-diagram.webp) */}
+
+### Software Configuration
+
+The software is highly configurable through `config.h`:
+
+```cpp
+// Enable desired LED strips
+#define ENABLE_TAILLIGHTS
+#define ENABLE_HEADLIGHTS
+
+// Configure LED counts and pins
+#define TAILLIGHT_LED_COUNT 120
+#define HEADLIGHT_LED_COUNT 120
+```
+
+## Operation Modes
+
+The controller supports multiple operation modes:
+
+- **Normal Mode**: Standard operation based on vehicle inputs
+- **Test Mode**: Manual control for testing and configuration
+- **Remote Mode**: Full wireless control from external devices
+- **Off Mode**: System shutdown with minimal power consumption
+
+{/* ![Control interface showing different modes](/project-imgs/esp32-car-led/control-interface.webp) */}
+
+## Development Tools
+
+To make development easier, I've included:
+
+- **Python LED simulator** for testing effects without hardware
+- **Comprehensive debug system** with real-time statistics
+- **Modular architecture** for easy customization and expansion
+
+## Technical Specifications
+
+### Supported Hardware
+
+- **ESP32-S2** and **ESP32-S3** variants
+- **WS2812B** LED strips (configurable count per strip)
+- **12V automotive electrical system** integration
+- **Custom PCB**
+
+### Performance Metrics
+
+- **High-frequency main loop** can proform checks upto 30000 times per second
+- **Multi-core task distribution** for optimal performance
+- **Real-time statistics** monitoring system health
+- **Efficient memory management** for large LED arrays
+
+## Future Enhancements
+
+I'm continuously working on improvements:
+
+- **Mobile app integration** for easier control
+- **Sound-reactive modes** that respond to music
+- **GPS-based effects** that change based on location
+- **Integration with car's CAN bus** for more advanced vehicle data
+
+## Safety and Reliability
+
+Safety is paramount in automotive applications:
+
+- **Failsafe mechanisms** ensure brake lights always function and tap the brake 3 times to disable eveything
+- **Graceful degradation** when components fail
+
+{/* ## Gallery */}
+
+{/* Here are some shots of the system in various configurations: */}
+
+{/* ![Taillight effects showcase](/project-imgs/esp32-car-led/taillight-effects.webp) */}
+{/* ![Headlight RGB patterns](/project-imgs/esp32-car-led/headlight-rgb.webp) */}
+{/* ![Underglow in action](/project-imgs/esp32-car-led/underglow-action.webp) */}
+{/* ![Interior accent lighting](/project-imgs/esp32-car-led/interior-lighting.webp) */}
+{/* ![Complete system overview](/project-imgs/esp32-car-led/complete-system.webp) */}
+
+## Conclusion
+
+The ESP32 Car LED Controller is a combination of embedded programming, cars, and electronics. It's not just about making your car look cool, it's about creating a robust, feature-rich system that can grow and adapt to new ideas.
+
+The custom PCB design make it simple to install in any car, while the modular software architecture makes it easy to add new effects and features. The wireless synchronization capability opens up possibilities for group displays and coordinated shows.
+
+Its basically magic. How the fuck did I draw some lines on the computer get china to make it then write some code and now these things automagically connect to each other and sync the beautifuly smooth effects with milliseconds precision.
+
+This is the coolest thing I've made so far. It has everything. Electronics, programming, led lights, cars, and wireless communication.
+
+The project is completely open-source, and I encourage others to build upon it, modify it, and make it their own.
+
+## What's Next?
+
+- [ ] Develop a mobile app for easier control and configuration (next priority)
+- [ ] Add GPS for location effects
+- [ ] Explore integration with vehicle CAN bus for advanced data
+- [ ] Create plug-and-play kits for popular vehicle models (far future)
