@@ -50,6 +50,22 @@ const config = {
   },
 };
 
+const rehype = {
+  theme: 'github-dark',
+  keepBackground: false,
+  /** @param {import('hast').Element} node */
+  onVisitLine(node) {
+    if (node.children.length === 0) {
+      node.children = [
+        {
+          type: 'text',
+          value: ' ',
+        },
+      ]
+    }
+  },
+}
+
 const withMDX = createMDX({
   extension: /\.(md|mdx)$/,
   options: {
@@ -59,25 +75,10 @@ const withMDX = createMDX({
       [remarkMdxFrontmatter, { name: 'frontmatter' }],
     ],
     // Cast to any to avoid vfile/unified type mismatch warnings in tooling
-    rehypePlugins: /** @type {any[]} */ ([
-      /** @type {any} */ (rehypeSlug),
+    rehypePlugins: ([
       [
         /** @type {any} */ (rehypePrettyCode),
-        {
-          theme: 'github-dark',
-          keepBackground: false,
-          /** @param {import('hast').Element} node */
-          onVisitLine(node) {
-            if (node.children.length === 0) {
-              node.children = [
-                {
-                  type: 'text',
-                  value: ' ',
-                },
-              ]
-            }
-          },
-        },
+        rehype,
       ],
     ]),
   },
