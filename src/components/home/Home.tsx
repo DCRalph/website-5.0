@@ -1,5 +1,5 @@
 
-import React, { Suspense } from 'react'
+import { Suspense } from 'react'
 import { SideBar } from '../nav/SideBar'
 import { Hero } from './hero/Hero'
 import { Heading } from '../nav/Heading'

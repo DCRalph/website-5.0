@@ -1,6 +1,6 @@
-import React from "react";
+// import React from "react";
 import { Home } from "../components/home/Home";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+// import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata = {
   title: "William Giles | Developer",
@@ -18,7 +18,7 @@ export default function Page() {
   return (
     <>
       <Home />
-      <SpeedInsights />
+      {/* <SpeedInsights /> */}
     </>
   );
 }
