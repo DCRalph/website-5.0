@@ -35,7 +35,7 @@ const experience: Experience[] = [
     id: 'bactosure2',
     title: 'Bactosure',
     position: 'Technology Manager',
-    time: 'Nov 2023 - Present',
+    time: 'Nov 2023 - Dec 2025',
     location: 'Wellingotn, NZ',
     description:
       `Transitioned into the Technology Manager role, having previously supported Bactosure's networking infrastructure and security needs. Now formally responsible for managing these areas, I focus on optimising network reliability, strengthening security protocols, and ensuring seamless technical support to enhance product performance and support commercial operations.`,
@@ -54,6 +54,34 @@ const experience: Experience[] = [
       "Networking",
       "Security",
 
+    ],
+  },
+  {
+    id: 'bactosure3',
+    title: 'Bactosure',
+    position: 'Head of Technology Operations',
+    time: 'Jan 2026 - Present',
+    location: 'Wellingotn, NZ',
+    description:
+      `Transitioned into the Head of Technology Operations role, having previously supported Bactosure's networking infrastructure and security needs. Now formally responsible for managing these areas, I focus on optimising network reliability, strengthening security protocols, and ensuring seamless technical support to enhance product performance and support commercial operations.`,
+    tech: [
+      'C++',
+      'Python',
+      'Raspberry Pi',
+      'ESP32',
+      'Arduino',
+      'AWS',
+      'Firebase',
+      'Git',
+      "Tensorflow",
+      "ERPNext",
+      "Linux",
+      "Networking",
+      "Security",
+      "DevOps",
+      "Cloud",
+      "AI",
+      "Machine Learning",
     ],
   },
 ]
