@@ -24,7 +24,7 @@ const CustomLink = ({ href = "#", children, ...rest }: LinkProps) => {
 
 const MdxImage = ({ src, alt = "" }: { src?: string; alt?: string }) => {
   if (!src) return null;
-  return <Image src={src} alt={alt} width={1600} height={1000} className="w-full" />;
+  return <Image src={src} alt={alt} width={1600} height={1000} className="w-full rounded-lg" />;
 };
 
 const Callout = ({ emoji, children }: PropsWithChildren<{ emoji: string }>) => (

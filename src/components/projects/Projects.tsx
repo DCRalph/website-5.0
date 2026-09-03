@@ -28,7 +28,7 @@ export function Projects() {
   return (
     <section>
       <SectionLabel>Projects</SectionLabel>
-      <ul>
+      <ul className="flex flex-col gap-3">
         {projects.map((p) => (
           <ProjectRow
             key={p.title}

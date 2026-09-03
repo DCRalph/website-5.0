@@ -30,8 +30,8 @@ export function Sidebar() {
         </p>
       </div>
 
-      <div className="relative mt-10 md:mt-0">
-        <dl className="grid max-w-md grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-dim">
+      <div className="glass relative mt-10 max-w-md rounded-2xl p-5 md:mt-0">
+        <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-dim">
           <dt className="text-dimmer">Now</dt>
           <dd>
             <span className="mr-2 inline-block size-1.5 rounded-full bg-brand align-middle" aria-hidden />
@@ -43,7 +43,7 @@ export function Sidebar() {
           <dd>{me.focus}</dd>
         </dl>
 
-        <nav className="mt-7 flex gap-5 text-[13px]">
+        <nav className="mt-5 flex gap-5 border-t border-white/10 pt-4 text-[13px]">
           {links.map((l) => (
             <Link
               key={l.label}

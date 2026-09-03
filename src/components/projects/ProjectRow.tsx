@@ -5,13 +5,13 @@ type Props = { project: Project; onOpen: () => void };
 
 export function ProjectRow({ project, onOpen }: Props) {
   return (
-    <li className="border-t border-hair last:border-b">
+    <li>
       <button
         type="button"
         onClick={onOpen}
-        className="group grid w-full cursor-pointer grid-cols-[110px_1fr] items-center gap-5 py-4 text-left md:grid-cols-[150px_1fr]"
+        className="group glass grid w-full cursor-pointer grid-cols-[110px_1fr] items-center gap-5 rounded-xl p-3 text-left transition-colors hover:bg-white/[0.07] md:grid-cols-[150px_1fr]"
       >
-        <span className="block aspect-[3/2] overflow-hidden bg-[#0a0a0a]">
+        <span className="block aspect-[3/2] overflow-hidden rounded-lg bg-[#0a0a0a]">
           <Image
             src={project.coverImage}
             alt=""
@@ -21,7 +21,7 @@ export function ProjectRow({ project, onOpen }: Props) {
             className="size-full object-cover opacity-80 grayscale transition-[opacity,filter] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
           />
         </span>
-        <span>
+        <span className="pr-1">
           <span className="flex justify-between text-[17px] font-medium tracking-tight transition-colors group-hover:text-brand">
             {project.title}
             <span className="font-mono text-xs font-normal text-dimmer">{project.year}</span>
