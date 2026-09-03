@@ -12,6 +12,37 @@
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* shadcn tokens, mapped onto the black theme */
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  --color-card: #000000;
+  --color-card-foreground: #ffffff;
+  --color-popover: #0a0a0a;
+  --color-popover-foreground: #ffffff;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #000000;
+  --color-secondary: #141414;
+  --color-secondary-foreground: #ffffff;
+  --color-muted: #141414;
+  --color-muted-foreground: #8a8a8a;
+  --color-accent: #141414;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #ff2c2c;
+  --color-border: #1e1e1e;
+  --color-input: #1e1e1e;
+  --color-ring: #444444;
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
 }
 
 html {
