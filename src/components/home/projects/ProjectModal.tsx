@@ -2,15 +2,13 @@
 
 import { useEffect, useState } from "react"
 import ReactDOM from "react-dom"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import Link from "next/link"
 import Image from "next/image"
 import { AiFillGithub, AiOutlineExport } from "react-icons/ai"
 import { MdClose } from "react-icons/md"
 
 import DateText from "~/components/utils/DateText"
-import { MDXProvider } from "@mdx-js/react"
-import { useMDXComponents } from "~/components/utils/MDX"
 import type { ProjectDoc } from "./Project"
 import { ArrowUpRight } from "lucide-react"
 
@@ -108,9 +106,7 @@ export const ProjectModal = ({ project, isOpen, setIsOpen }: Props) => {
 
           {/* Enhanced content area with better readability */}
           <article className="prose prose-invert prose-neutral max-w-none ">
-            <MDXProvider components={useMDXComponents()}>
-              <project.Component />
-            </MDXProvider>
+            <project.Component />
           </article>
 
           {/* Enhanced divider */}

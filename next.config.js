@@ -1,13 +1,10 @@
 import createMDX from '@next/mdx'
-import remarkGfm from 'remark-gfm'
-import rehypeSlug from 'rehype-slug'
-import rehypePrettyCode from 'rehype-pretty-code'
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 
 /** @type {import("next").NextConfig} */
 const config = {
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+  // Lets `next dev` accept HMR/asset requests from this LAN hostname
+  allowedDevOrigins: ['spicy-dev'],
   images: {
     remotePatterns: [
       {
@@ -50,37 +47,17 @@ const config = {
   },
 };
 
-const rehype = {
-  theme: 'github-dark',
-  keepBackground: false,
-  /** @param {import('hast').Element} node */
-  onVisitLine(node) {
-    if (node.children.length === 0) {
-      node.children = [
-        {
-          type: 'text',
-          value: ' ',
-        },
-      ]
-    }
-  },
-}
-
+// Turbopack requires MDX plugins as serializable strings, not imported functions.
 const withMDX = createMDX({
   extension: /\.(md|mdx)$/,
   options: {
     remarkPlugins: [
-      //     remarkGfm,
-      remarkFrontmatter,
-      [remarkMdxFrontmatter, { name: 'frontmatter' }],
+      'remark-frontmatter',
+      ['remark-mdx-frontmatter', { name: 'frontmatter' }],
     ],
-    // Cast to any to avoid vfile/unified type mismatch warnings in tooling
-    rehypePlugins: ([
-      [
-        /** @type {any} */ (rehypePrettyCode),
-        rehype,
-      ],
-    ]),
+    rehypePlugins: [
+      ['rehype-pretty-code', { theme: 'github-dark', keepBackground: false }],
+    ],
   },
 })
 

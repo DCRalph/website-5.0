@@ -1,6 +1,6 @@
 "use client";
 import { Reveal } from "~/components/utils/Reveal";
-import { useAnimation, useInView, motion } from "framer-motion";
+import { useAnimation, useInView, motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -45,11 +45,14 @@ export const Project = ({ project, shouldOpen }: ProjectProps) => {
     }
   }, [isInView, controls]);
 
-  useEffect(() => {
-    if (shouldOpen) {
-      setIsOpen(true);
-    }
-  }, [shouldOpen]);
+  // Open the modal when shouldOpen flips to true (e.g. ?project= in the URL),
+  // while still letting the user close it afterwards. Adjusting state during
+  // render avoids the extra effect-triggered re-render.
+  const [prevShouldOpen, setPrevShouldOpen] = useState(false);
+  if (shouldOpen !== prevShouldOpen) {
+    setPrevShouldOpen(shouldOpen);
+    if (shouldOpen) setIsOpen(true);
+  }
 
   return (
     <>
