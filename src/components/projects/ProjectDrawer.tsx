@@ -13,15 +13,18 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "~/components/ui/drawer";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import type { Project } from "~/lib/projects";
 
 type Props = { project: Project; onClose: () => void };
 
-/** Project writeup in a bottom drawer: thumbnail and meta in the header, MDX body scrolls, links pinned in the footer. */
+/**
+ * Project writeup in a bottom drawer: thumbnail and meta in the header, MDX
+ * body scrolls, links pinned in the footer. vaul owns the open state so it can
+ * play the slide-down; `onClose` fires once that animation has finished.
+ */
 export function ProjectDrawer({ project, onClose }: Props) {
   return (
-    <Drawer open onOpenChange={(isOpen) => !isOpen && onClose()}>
+    <Drawer defaultOpen onAnimationEnd={(open) => !open && onClose()}>
       <DrawerContent className="mx-auto max-w-3xl data-[vaul-drawer-direction=bottom]:max-h-[92vh]">
         <DrawerHeader className="gap-3 px-6 text-left">
           <div className="grid grid-cols-[72px_1fr] items-center gap-4">
@@ -48,11 +51,11 @@ export function ProjectDrawer({ project, onClose }: Props) {
           </div>
         </DrawerHeader>
 
-        <ScrollArea className="min-h-0 flex-1 border-t px-6">
+        <div className="min-h-0 flex-1 overflow-y-auto border-t px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <article className="prose prose-invert prose-neutral max-w-none py-6 prose-headings:tracking-tight prose-a:no-underline">
             <project.Component />
           </article>
-        </ScrollArea>
+        </div>
 
         <DrawerFooter className="flex-row items-center justify-between border-t px-6">
           <div className="flex gap-2">
