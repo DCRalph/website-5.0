@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { ArrowUpRight, CodeXml } from "lucide-react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -19,12 +20,15 @@ type Props = { project: Project; onClose: () => void };
 
 /**
  * Project writeup in a bottom drawer: thumbnail and meta in the header, MDX
- * body scrolls, links pinned in the footer. vaul owns the open state so it can
- * play the slide-down; `onClose` fires once that animation has finished.
+ * body scrolls, links pinned in the footer. Mounting with `open` true makes
+ * vaul play the slide-up; closing flips the state so it slides down, and
+ * `onClose` fires once that animation has finished.
  */
 export function ProjectDrawer({ project, onClose }: Props) {
+  const [open, setOpen] = useState(true);
+
   return (
-    <Drawer defaultOpen onAnimationEnd={(open) => !open && onClose()}>
+    <Drawer open={open} onOpenChange={setOpen} onAnimationEnd={(isOpen) => !isOpen && onClose()}>
       <DrawerContent className="mx-auto max-w-3xl data-[vaul-drawer-direction=bottom]:max-h-[92vh]">
         <DrawerHeader className="gap-3 px-6 text-left">
           <div className="grid grid-cols-[72px_1fr] items-center gap-4">
