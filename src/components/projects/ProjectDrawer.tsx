@@ -1,15 +1,12 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowUpRight, CodeXml } from "lucide-react";
+import { GradientBlur } from "~/components/GradientBlur";
 import { Button } from "~/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerTitle } from "~/components/ui/drawer";
 import type { Project } from "~/lib/projects";
-
-// Reads window/navigator at module scope, so keep it out of the server bundle.
-const LiquidGlass = dynamic(() => import("liquid-glass-react"), { ssr: false });
 
 type Props = { project: Project; onClose: () => void };
 
@@ -27,29 +24,16 @@ export function ProjectDrawer({ project, onClose }: Props) {
       <DrawerContent className="mx-auto max-w-3xl overflow-hidden rounded-t-2xl border-white/10 bg-[#0a0a0a] data-[vaul-drawer-direction=bottom]:max-h-[92vh]">
         <div className="relative mt-3 h-44 shrink-0 overflow-hidden bg-black md:h-52">
           <Image src={project.coverImage} alt="" fill sizes="768px" className="object-cover" priority />
-          {/* Liquid-glass title band. The library centres its pane on top/left via a -50% translate,
-              so it sits at 50%/50% of a wrapper sized to match, and the wrapper is masked so the
-              refraction fades out up the cover. The [&_.glass] resets undo this site's own `glass`
-              utility, which the library's inner element happens to share a class name with. */}
-          <div className="absolute inset-x-0 bottom-0 z-10 h-28 [mask-image:linear-gradient(to_top,#000_45%,transparent)] md:h-32 [&_.glass]:border-0 [&_.glass]:bg-transparent [&_.glass]:shadow-none [&_.glass]:backdrop-blur-none">
-            <LiquidGlass
-              style={{ position: "absolute", top: "50%", left: "50%" }}
-              cornerRadius={0}
-              padding="0"
-              elasticity={0}
-              displacementScale={48}
-              blurAmount={0.35}
-              saturation={130}
-              aberrationIntensity={1.5}
-            >
-              <div className="flex h-28 w-screen max-w-3xl items-end justify-between gap-4 px-6 pb-4 md:h-32">
-                <DrawerTitle className="text-3xl font-semibold tracking-tight">{project.title}</DrawerTitle>
-                <span className="font-mono text-xs text-white/70">
-                  {project.publishedAt}
-                  {project.updatedAt && project.updatedAt !== project.publishedAt && ` · updated ${project.updatedAt}`}
-                </span>
-              </div>
-            </LiquidGlass>
+          {/* Frosted band: progressive blur over the image, a light tint for legibility, and a highlight line on its top edge. */}
+          <GradientBlur direction="bottom" className="absolute inset-x-0 top-[30%] bottom-0" />
+          <div className="absolute inset-0 bg-[#0a0a0a]/40 [mask-image:linear-gradient(to_top,#000_20%,transparent_65%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
+          <div className="absolute inset-x-6 bottom-4 z-10 flex items-baseline justify-between gap-4">
+            <DrawerTitle className="text-3xl font-semibold tracking-tight">{project.title}</DrawerTitle>
+            <span className="font-mono text-xs text-dim">
+              {project.publishedAt}
+              {project.updatedAt && project.updatedAt !== project.publishedAt && ` · updated ${project.updatedAt}`}
+            </span>
           </div>
         </div>
 
