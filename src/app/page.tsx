@@ -23,7 +23,7 @@ export default function Page() {
       <ScrollEdges />
       <div className="grid min-h-screen md:grid-cols-2">
         <Sidebar />
-        <main className="px-6 pb-32 md:pt-10 md:pr-10 md:pl-0">
+        <main className="px-6 pb-32 md:pt-[10vh] md:pr-10 md:pl-0">
           <Work />
           <Suspense fallback={null}>
             <Projects />

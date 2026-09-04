@@ -14,9 +14,14 @@ const links = [
 export function Sidebar() {
   return (
     <aside className="relative flex flex-col justify-between overflow-hidden p-6 md:sticky md:top-0 md:h-screen md:p-10">
+      {/* Subtle red glows: one behind the name, one behind the meta panel so it shows through the glass. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute top-[20%] -left-[20%] aspect-square w-[90%] bg-[radial-gradient(circle,rgba(255,44,44,0.07),transparent_60%)]"
+        className="pointer-events-none absolute top-[10%] -left-[15%] aspect-square w-[80%] bg-[radial-gradient(circle,rgba(255,44,44,0.11),transparent_60%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-[10%] -left-[10%] aspect-square w-[75%] bg-[radial-gradient(circle,rgba(255,44,44,0.14),transparent_60%)]"
       />
 
       <div className="relative">
@@ -30,7 +35,7 @@ export function Sidebar() {
         </p>
       </div>
 
-      <div className="glass relative mt-10 max-w-md rounded-2xl p-5 md:mt-0">
+      <div className="glass relative mt-10 max-w-md rounded-2xl bg-white/[0.015] p-5 md:mt-0">
         <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-dim">
           <dt className="text-dimmer">Now</dt>
           <dd>

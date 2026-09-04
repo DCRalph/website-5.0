@@ -12,8 +12,9 @@ const isScrolled = () => window.scrollY > 8;
 
 /**
  * Fixed blur bands at the top and bottom of the scrolling column, so content
- * dissolves as it leaves the viewport. The top band only appears once the page
- * has scrolled, so nothing sits over the name on first paint.
+ * dissolves as it leaves the viewport. On mobile the sidebar scrolls too, so
+ * the top band only appears once the page has scrolled; on desktop it is
+ * always on.
  */
 export function ScrollEdges() {
   const scrolled = useSyncExternalStore(subscribe, isScrolled, () => false);
@@ -23,7 +24,7 @@ export function ScrollEdges() {
       <div
         className={cn(
           "pointer-events-none fixed inset-x-0 top-0 z-20 h-20 transition-opacity duration-300 md:left-1/2",
-          scrolled ? "opacity-100" : "opacity-0",
+          scrolled ? "opacity-100" : "opacity-0 md:opacity-100",
         )}
       >
         <GradientBlur direction="top" className="absolute inset-0" />
