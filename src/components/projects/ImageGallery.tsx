@@ -1,6 +1,6 @@
 "use client";
 
-import { getImageProps } from "next/image";
+import Image, { getImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -64,6 +64,8 @@ export function ImageGallery({ images, index, onIndexChange, onClose, label }: P
 
   const onPointerDown = (event: React.PointerEvent) => {
     if (event.button !== 0) return;
+    // The rail scrolls itself, so a drag that starts there is not an image swipe.
+    if (event.target instanceof Element && event.target.closest("[data-gallery-rail]")) return;
     gesture.current = { x: event.clientX, y: event.clientY, axis: null };
     dragged.current = false;
   };
@@ -102,11 +104,12 @@ export function ImageGallery({ images, index, onIndexChange, onClose, label }: P
   // Only clicks that land on the backdrop close, not the photo or the controls.
   const onClick = (event: React.MouseEvent) => {
     if (dragged.current) return;
-    if (event.target instanceof Element && event.target.closest("img, button")) return;
+    if (event.target instanceof Element && event.target.closest("img, button, [data-gallery-rail]")) return;
     onClose();
   };
 
   const offset = drag ?? { x: 0, y: 0 };
+  const showRail = images.length > 1;
 
   return createPortal(
     <div
@@ -127,7 +130,7 @@ export function ImageGallery({ images, index, onIndexChange, onClose, label }: P
         style={{ transform: `translate3d(calc(${-index * 100}% + ${offset.x}px), ${offset.y}px, 0)` }}
       >
         {images.map((image, i) => (
-          <div key={image.src} className="flex h-full w-full shrink-0 items-center justify-center px-4 py-16 md:px-16">
+          <div key={image.src} className="flex h-full w-full shrink-0 items-center justify-center px-4 pt-14 pb-28 md:px-16 md:pb-32">
             <Photo image={image} eager={Math.abs(i - index) <= 1} />
           </div>
         ))}
@@ -150,7 +153,13 @@ export function ImageGallery({ images, index, onIndexChange, onClose, label }: P
       {index > 0 && <GalleryArrow side="left" onClick={() => step(-1)} />}
       {index < images.length - 1 && <GalleryArrow side="right" onClick={() => step(1)} />}
 
-      {current?.alt && <p className="absolute bottom-5 left-5 max-w-[60%] text-sm text-dim">{current.alt}</p>}
+      {current?.alt && (
+        <p className={cn("absolute left-5 max-w-[60%] text-sm text-dim", showRail ? "bottom-22 md:bottom-24" : "bottom-5")}>
+          {current.alt}
+        </p>
+      )}
+
+      {showRail && <GalleryRail images={images} index={index} onPick={onIndexChange} />}
     </div>,
     document.body,
   );
@@ -170,6 +179,56 @@ function GalleryArrow({ side, onClick }: { side: "left" | "right"; onClick: () =
     >
       <Icon className="size-4" />
     </button>
+  );
+}
+
+/**
+ * Thumbnails of the whole set along the bottom edge, so the current position is
+ * always visible and any image is one click away. The rail keeps the active
+ * thumbnail in view as the gallery is stepped through by any other means.
+ */
+function GalleryRail({ images, index, onPick }: { images: GalleryImage[]; index: number; onPick: (index: number) => void }) {
+  const rail = useRef<HTMLDivElement>(null);
+  const active = useRef<HTMLButtonElement>(null);
+
+  // Centre the active thumbnail by scrolling the rail itself. scrollIntoView would
+  // also scroll the gallery root, which the slide track overflows.
+  useEffect(() => {
+    const thumb = active.current;
+    if (!rail.current || !thumb) return;
+    rail.current.scrollTo({
+      left: thumb.offsetLeft - (rail.current.clientWidth - thumb.clientWidth) / 2,
+      behavior: "smooth",
+    });
+  }, [index]);
+
+  return (
+    <div
+      ref={rail}
+      data-gallery-rail
+      className="absolute inset-x-0 bottom-0 touch-pan-x overflow-x-auto bg-linear-to-t from-black to-transparent px-4 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {/* w-max keeps the set centred until it outgrows the screen, and scrollable from
+          the first thumbnail once it does. */}
+      <div className="mx-auto flex w-max gap-2">
+        {images.map((image, i) => (
+          <button
+            key={image.src}
+            ref={i === index ? active : null}
+            type="button"
+            onClick={() => onPick(i)}
+            aria-label={`Image ${i + 1}`}
+            aria-current={i === index}
+            className={cn(
+              "size-11 shrink-0 cursor-pointer overflow-hidden rounded-md border transition-opacity md:size-14",
+              i === index ? "border-white/35 opacity-100" : "border-transparent opacity-45 hover:opacity-80",
+            )}
+          >
+            <Image src={image.src} alt="" width={112} height={112} sizes="56px" className="size-full object-cover" />
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
