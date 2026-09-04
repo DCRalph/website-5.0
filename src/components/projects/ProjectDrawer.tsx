@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { ArrowUpRight, CodeXml } from "lucide-react";
+import { useCallback, useState } from "react";
+import { ArrowUpRight, CodeXml, Expand } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerTitle } from "~/components/ui/drawer";
+import { ImageGallery, type GalleryImage } from "./ImageGallery";
 import type { Project } from "~/lib/projects";
 
 type Props = { project: Project; onClose: () => void };
@@ -26,11 +27,45 @@ const coverBlurs = [
  */
 export function ProjectDrawer({ project, onClose }: Props) {
   const [open, setOpen] = useState(true);
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const cover = project.coverImage;
+  const title = project.title;
+
+  // The writeup is MDX, so the gallery list is read back out of the article once it
+  // mounts: cover first, then every image in reading order, deduplicated.
+  const collectImages = useCallback(
+    (body: HTMLDivElement | null) => {
+      if (!body) return;
+      const bySrc = new Map<string, GalleryImage>();
+      if (cover) bySrc.set(cover, { src: cover, alt: `${title} cover` });
+      for (const node of body.querySelectorAll<HTMLElement>("[data-gallery-src]")) {
+        const src = node.dataset.gallerySrc;
+        if (src && !bySrc.has(src)) bySrc.set(src, { src, alt: node.dataset.galleryAlt ?? "" });
+      }
+      setImages([...bySrc.values()]);
+    },
+    [cover, title],
+  );
+
+  // Any image in the writeup opens the gallery at itself.
+  const openFromClick = (event: React.MouseEvent) => {
+    if (!(event.target instanceof Element)) return;
+    const src = event.target.closest<HTMLElement>("[data-gallery-src]")?.dataset.gallerySrc;
+    const index = images.findIndex((image) => image.src === src);
+    if (index >= 0) setGalleryIndex(index);
+  };
 
   return (
     <Drawer open={open} onOpenChange={setOpen} onAnimationEnd={(isOpen) => !isOpen && onClose()}>
-      <DrawerContent className="mx-auto max-w-3xl overflow-hidden rounded-t-2xl border-white/10 bg-[#0a0a0a] data-[vaul-drawer-direction=bottom]:max-h-[92vh]">
+      <DrawerContent
+        className="mx-auto max-w-3xl overflow-hidden rounded-t-2xl border-white/10 bg-[#0a0a0a] data-[vaul-drawer-direction=bottom]:max-h-[92vh]"
+        // The gallery renders outside the drawer, so without this a click in it would
+        // read as a click outside and close the drawer underneath.
+        onInteractOutside={(event) => {
+          if (galleryIndex !== null) event.preventDefault();
+        }}
+      >
         <div className="relative h-44 shrink-0 overflow-hidden bg-black md:h-52">
           {/* Drag handle sits on the cover so the image runs to the drawer's top edge. */}
           <div className="absolute top-3 left-1/2 z-20 h-1.5 w-12 -translate-x-1/2 rounded-full bg-white/70 shadow-[0_1px_4px_rgba(0,0,0,0.4)]" />
@@ -62,6 +97,15 @@ export function ProjectDrawer({ project, onClose }: Props) {
           {/* Darkening that ramps with the blur, plus a hairline on the band's bottom edge. */}
           <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_45%,rgba(10,10,10,0.2)_62%,rgba(10,10,10,0.45)_80%,rgba(10,10,10,0.7))]" />
           <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
+          {images.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setGalleryIndex(0)}
+              className="glass absolute top-4 right-4 z-20 flex h-8 cursor-pointer items-center gap-1.5 rounded-lg px-3 text-[13px] font-medium transition-colors hover:bg-white/10"
+            >
+              <Expand className="size-3.5" /> {images.length} images
+            </button>
+          )}
           <div className="absolute inset-x-6 bottom-4 z-10 flex items-baseline justify-between gap-4">
             <DrawerTitle className="text-3xl font-semibold tracking-tight">{project.title}</DrawerTitle>
             <span className="font-mono text-xs text-dim">
@@ -76,7 +120,11 @@ export function ProjectDrawer({ project, onClose }: Props) {
           <span className="font-mono text-xs text-dimmer">{project.tech.join(" · ")}</span>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto border-t px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div
+          ref={collectImages}
+          onClick={openFromClick}
+          className="min-h-0 flex-1 overflow-y-auto border-t px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           <article className="prose prose-invert prose-neutral max-w-none py-6 prose-headings:tracking-tight prose-a:no-underline prose-img:rounded-lg">
             <project.Component />
           </article>
@@ -103,6 +151,15 @@ export function ProjectDrawer({ project, onClose }: Props) {
             <Button variant="ghost" size="sm" className="rounded-lg">Close</Button>
           </DrawerClose>
         </DrawerFooter>
+        {galleryIndex !== null && (
+          <ImageGallery
+            images={images}
+            index={galleryIndex}
+            onIndexChange={setGalleryIndex}
+            onClose={() => setGalleryIndex(null)}
+            label={`${title} images`}
+          />
+        )}
       </DrawerContent>
     </Drawer>
   );

@@ -22,9 +22,24 @@ const CustomLink = ({ href = "#", children, ...rest }: LinkProps) => {
   );
 };
 
+/**
+ * Images in a writeup double as gallery entries: ProjectDrawer reads these data
+ * attributes back out of the rendered article to build the full screen gallery
+ * and to open it at the image that was clicked. Outside a drawer it is inert.
+ */
 const MdxImage = ({ src, alt = "" }: { src?: string; alt?: string }) => {
   if (!src) return null;
-  return <Image src={src} alt={alt} width={1600} height={1000} className="w-full rounded-lg" />;
+  return (
+    <button
+      type="button"
+      data-gallery-src={src}
+      data-gallery-alt={alt}
+      aria-label={alt ? undefined : "View image full screen"}
+      className="block w-full cursor-zoom-in"
+    >
+      <Image src={src} alt={alt} width={1600} height={1000} className="w-full rounded-lg" />
+    </button>
+  );
 };
 
 const Callout = ({ emoji, children }: PropsWithChildren<{ emoji: string }>) => (
