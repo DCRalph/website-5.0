@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { WGParticles } from "~/components/WGParticles";
 import { experience } from "~/lib/experience";
 import { me } from "~/lib/me";
 
@@ -14,16 +15,6 @@ const links = [
 export function Sidebar() {
   return (
     <aside className="relative flex flex-col justify-between overflow-hidden p-6 md:sticky md:top-0 md:h-screen md:p-10">
-      {/* Subtle red glows: one behind the name, one behind the meta panel so it shows through the glass. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-[10%] -left-[15%] aspect-square w-[80%] bg-[radial-gradient(circle,rgba(255,44,44,0.11),transparent_60%)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-[10%] -left-[10%] aspect-square w-[75%] bg-[radial-gradient(circle,rgba(255,44,44,0.14),transparent_60%)]"
-      />
-
       <div className="relative">
         <h1 className="text-[clamp(56px,7.5vw,112px)] leading-[.9] font-semibold tracking-[-.05em]">
           William
@@ -34,6 +25,8 @@ export function Sidebar() {
           Software engineer
         </p>
       </div>
+
+      <WGParticles />
 
       <div className="glass relative mt-10 max-w-md rounded-2xl bg-white/[0.015] p-5 md:mt-0">
         <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-dim">

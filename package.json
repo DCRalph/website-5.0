@@ -31,6 +31,7 @@
     "server-only": "^0.0.1",
     "shiki": "^4.4.3",
     "tailwind-merge": "^3.6.0",
+    "three": "^0.185.1",
     "vaul": "^1.1.2"
   },
   "devDependencies": {
@@ -39,9 +40,11 @@
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
+    "@types/three": "^0.185.4",
     "autoprefixer": "^10.5.4",
     "eslint": "9",
     "eslint-config-next": "^16.3.4",
+    "opentype.js": "^2.0.0",
     "postcss": "^8.5.28",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",

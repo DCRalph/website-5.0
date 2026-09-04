@@ -3,7 +3,8 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: [".next"],
+    // canvasui/ is vendored from a shadcn registry and is not ours to lint.
+    ignores: [".next", "src/components/canvasui"],
   },
   ...nextCoreWebVitals,
   {
