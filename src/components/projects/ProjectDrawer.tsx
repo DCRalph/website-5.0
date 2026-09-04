@@ -23,9 +23,11 @@ export function ProjectDrawer({ project, onClose }: Props) {
     <Drawer open={open} onOpenChange={setOpen} onAnimationEnd={(isOpen) => !isOpen && onClose()}>
       <DrawerContent className="mx-auto max-w-3xl overflow-hidden rounded-t-2xl border-white/10 bg-[#0a0a0a] data-[vaul-drawer-direction=bottom]:max-h-[92vh]">
         <div className="relative mt-3 h-44 shrink-0 overflow-hidden bg-black md:h-52">
-          <Image src={project.coverImage} alt="" fill sizes="768px" className="object-cover opacity-85" priority />
-          <GradientBlur direction="bottom" className="absolute inset-x-0 top-[45%] bottom-0" />
-          <div className="absolute inset-0 bg-[#0a0a0a]/85 [mask-image:linear-gradient(to_top,#000_15%,transparent_60%)]" />
+          <Image src={project.coverImage} alt="" fill sizes="768px" className="object-cover" priority />
+          {/* Frosted band: progressive blur over the image, a light tint for legibility, and a highlight line on its top edge. */}
+          <GradientBlur direction="bottom" className="absolute inset-x-0 top-[30%] bottom-0" />
+          <div className="absolute inset-0 bg-[#0a0a0a]/40 [mask-image:linear-gradient(to_top,#000_20%,transparent_65%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-px bg-white/10" />
           <div className="absolute inset-x-6 bottom-4 z-10 flex items-baseline justify-between gap-4">
             <DrawerTitle className="text-3xl font-semibold tracking-tight">{project.title}</DrawerTitle>
             <span className="font-mono text-xs text-dim">
