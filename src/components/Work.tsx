@@ -4,7 +4,7 @@ import { cn } from "~/lib/utils";
 
 export function Work() {
   return (
-    <section>
+    <section className="relative z-10">
       <SectionLabel>Work</SectionLabel>
       <ol className="border-l border-hair-strong pl-7">
         {experience.map((role, i) => {

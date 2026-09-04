@@ -9,7 +9,8 @@ export function ProjectRow({ project, onOpen }: Props) {
       <button
         type="button"
         onClick={onOpen}
-        className="group glass grid w-full cursor-pointer grid-cols-[110px_1fr] items-center gap-5 rounded-xl p-3 text-left transition-colors hover:bg-white/[0.07] md:grid-cols-[150px_1fr]"
+        className="group glass relative z-10 grid w-full cursor-pointer grid-cols-[110px_1fr] items-center gap-5 rounded-xl p-3 text-left transition-colors hover:bg-white/[0.07] md:grid-cols-[150px_1fr]"
+        data-frost
       >
         <span className="block aspect-[3/2] overflow-hidden rounded-lg bg-[#0a0a0a]">
           {project.coverImage && (

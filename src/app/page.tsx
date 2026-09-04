@@ -28,7 +28,7 @@ export default function Page() {
           <Suspense fallback={null}>
             <Projects />
           </Suspense>
-          <Contact />
+          {/* <Contact /> */}
         </main>
       </div>
     </>

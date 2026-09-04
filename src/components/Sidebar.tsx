@@ -14,8 +14,8 @@ const links = [
 
 export function Sidebar() {
   return (
-    <aside className="relative flex flex-col justify-between overflow-hidden p-6 md:sticky md:top-0 md:h-screen md:p-10">
-      <div className="relative">
+    <aside className="relative flex flex-col justify-between p-6 md:sticky md:top-0 md:h-screen md:p-10">
+      <div className="pointer-events-none relative z-10">
         <h1 className="text-[clamp(56px,7.5vw,112px)] leading-[.9] font-semibold tracking-[-.05em]">
           William
           <br />
@@ -28,7 +28,10 @@ export function Sidebar() {
 
       <WGParticles />
 
-      <div className="glass relative mt-10 max-w-md rounded-2xl bg-white/[0.015] p-5 md:mt-0">
+      <div
+        data-frost
+        className="glass relative z-10 mt-10 max-w-md rounded-2xl bg-white/[0.015] p-5 md:mt-0"
+      >
         <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-dim">
           <dt className="text-dimmer">Now</dt>
           <dd>
