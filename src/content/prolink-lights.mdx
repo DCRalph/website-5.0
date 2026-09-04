@@ -1,0 +1,91 @@
+---
+title: Prolink Lights
+publishedAt: 4/9/2026
+projectLink: https://prolink.w-g.co
+description: Beat-synced DMX and LED lighting driven directly from Pioneer CDJs, programmed per track on the real waveform.
+tech: TypeScript \ Electron \ React \ DMX \ Swift
+---
+
+# Prolink Lights: lighting that knows what the DJ is playing
+
+Most club lighting has no idea what the music is doing. Someone taps a tempo, a sound-to-light box guesses at the transient of a kick drum, and within four bars everything drifts.
+
+Prolink Lights takes a fundamentally different approach. By plugging directly into the booth's existing DJ network, the app reads exactly where every deck is in its track and drives DMX fixtures and LED strips with sub-beat precision. 
+
+Nothing is installed on the players and no rekordbox settings need to change. Plug a single Ethernet cable into the booth switch, and the app sees the entire stage.
+
+---
+
+## Direct booth integration
+
+Instead of relying on audio analysis or guesswork, the engine synchronizes directly with the hardware in the booth:
+
+- **Live deck telemetry:** Play state, pitch bend, BPM, active deck status, and continuous playhead position.
+- **Musical context:** Full track beat grids, memory cues, phrase analysis (intros, builds, drops, outros), and colored waveforms.
+
+The result is a real-time model of every deck, refreshed continuously. Every effect in the engine runs locked to the music. If a strobe is divided to a 1/4-beat rate, it hits precisely on grid because the timing comes directly from the track data—not a manual tap. When the DJ nudges the jog wheel or adjusts the tempo fader, the lights follow instantaneously.
+
+The engine automatically tracks the live master deck, with manual clock and tap tempo fallbacks available for running standalone rigs without CDJs.
+
+---
+
+## Programming to the waveform
+
+In traditional lighting software, syncing a show to a specific track requires stopwatches, timecode generators, or blind bar counters. Prolink Lights brings the track directly into the workflow.
+
+Opening a track displays a full DAW-style timeline generated from the real waveform, complete with beat grids, cue points, and structural phrase markers. Designing a show is as simple as placing events directly where the music demands them.
+
+### Hot cues & macros
+Each trigger on the timeline is a **hot cue** containing a macro: activating a scene, triggering an effect, swapping palettes, pulsing brightness, or overriding a blackout. Sustained cues have length, meaning you can drag a duration out across bars and let the release trigger naturally on the drop or breakdown.
+
+### A modern timeline editor
+- **Multi-lane sequencing:** Up to eight priority-ordered lanes per track to layer subtle ambient looks with high-priority strobe hits.
+- **Precise editing tools:** Marquee selection, multi-lane grouping, beat-aligned nudging, and batch-property inspectors.
+- **DAW import:** Import cues directly via MIDI to translate lighting patterns mapped in Ableton straight onto the timeline.
+- **Drive-agnostic mapping:** Cues attach to the track identity rather than a specific drive or database index. Program a track once at home, and it will fire seamlessly regardless of which USB drive the DJ plugs in that night.
+
+Because the engine continuously monitors playback, live performance stays bulletproof: scrub backward and held looks release cleanly; jump to a cue point and the drop triggers instantly.
+
+---
+
+## Studio workflow without the hardware
+
+You shouldn’t need thousands of dollars in club gear sitting on your desk to program a show.
+
+- **Automatic session capture:** Every track loaded during a set has its waveform, grid, and phrase metadata automatically archived. You can play a gig on Friday and fine-tune your cue library on Sunday from the recorded set.
+- **Offline drive support:** Load exported library folders directly into the app. The timeline parses the exact same grid, phrase, and cue offsets offline that the booth hardware will read live.
+- **Portable project files:** Track cues, waveforms, and layout data can be bundled into self-contained files, making it easy to back up shows or share cues with another lighting designer.
+
+---
+
+## The live engine
+
+Beyond pre-programmed track cues, the software provides multiple layers of live control:
+
+- **Phase-locked Sequencer:** Looping patterns from 1/4 beat to 256 beats locked to the master phrase boundary. Loops stay locked to the musical bar and pause cleanly when tracks stop.
+- **Dynamic Cue Lists:** Step-based macro sequences that can be advanced manually or automatically on beat counts.
+- **Spatial Engine & Modifiers:** Fixtures are mapped in 2D/3D space, allowing sweeps and chases to move physically across the rig in the intended direction. Modifier stacks let you overlay strobe gates, direction masks, and color chases over base scenes without rebuilding looks from scratch.
+
+---
+
+## Control surfaces & hardware outputs
+
+Built for low-latency live performance, the engine isolates render cycles from the user interface to ensure lighting timing remains rock-solid regardless of UI load.
+
+**Lighting outputs:**
+- sACN and Art-Net over standard network infrastructure
+- Direct USB DMX interfaces (Enttec and compatible adapters)
+- Direct UDP control for pixel-mapped LED strips (such as WLED)
+
+**Control inputs:**
+- Elgato Stream Deck with dynamic status rendering on key faces
+- MIDI controllers with hardware feedback and fader dead-zones
+- Native companion app on iOS for wireless zone control and trigger pads from the booth or front of house
+- Dedicated booth displays for set timers, status clocks, and production messaging
+
+---
+
+## What’s next
+
+- [ ] Predictive cue dispatch to compensate for moving-head mechanical latency, ensuring heavy fixtures strike right on the transient
+- [ ] Comprehensive documentation and setup guides at [prolink.w-g.co](https://prolink.w-g.co)

@@ -9,12 +9,13 @@ import DCRalphEnterprise, { frontmatter as dcralphEnterprise } from "../content/
 import Esp32Remote, { frontmatter as esp32Remote } from "../content/esp32_remote.mdx";
 import Esp32CarLedController, { frontmatter as esp32CarLedController } from "../content/esp32-car-led-controller.mdx";
 import Race360, { frontmatter as race360 } from "../content/race360.mdx";
+import ProlinkLights, { frontmatter as prolinkLights } from "../content/prolink-lights.mdx";
 
 type Frontmatter = {
   title: string;
   publishedAt: string; // d/m/yyyy
   updatedAt?: string;
-  coverImage: string;
+  coverImage?: string;
   projectLink?: string;
   codeLink?: string;
   description: string;
@@ -44,6 +45,7 @@ const toProject = (Component: ComponentType, fm: Frontmatter): Project => ({
 
 // Newest first.
 export const projects: Project[] = [
+  toProject(ProlinkLights, prolinkLights as Frontmatter),
   toProject(Website, website as Frontmatter),
   toProject(BoxThing, boxThing as Frontmatter),
   toProject(Burgerfuel, burgerfuel as Frontmatter),

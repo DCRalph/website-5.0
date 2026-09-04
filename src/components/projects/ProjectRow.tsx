@@ -12,14 +12,16 @@ export function ProjectRow({ project, onOpen }: Props) {
         className="group glass grid w-full cursor-pointer grid-cols-[110px_1fr] items-center gap-5 rounded-xl p-3 text-left transition-colors hover:bg-white/[0.07] md:grid-cols-[150px_1fr]"
       >
         <span className="block aspect-[3/2] overflow-hidden rounded-lg bg-[#0a0a0a]">
-          <Image
-            src={project.coverImage}
-            alt=""
-            width={480}
-            height={320}
-            sizes="150px"
-            className="size-full object-cover opacity-80 grayscale transition-[opacity,filter] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
-          />
+          {project.coverImage && (
+            <Image
+              src={project.coverImage}
+              alt=""
+              width={480}
+              height={320}
+              sizes="150px"
+              className="size-full object-cover opacity-80 grayscale transition-[opacity,filter] duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+            />
+          )}
         </span>
         <span className="pr-1">
           <span className="flex justify-between text-[17px] font-medium tracking-tight transition-colors group-hover:text-brand">
