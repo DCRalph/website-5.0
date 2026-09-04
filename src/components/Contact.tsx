@@ -3,7 +3,7 @@ import { me } from "~/lib/me";
 
 export function Contact() {
   return (
-    <div className="glass mt-16 flex flex-wrap items-baseline justify-between gap-4 rounded-2xl px-5 py-4">
+    <div className="glass relative mt-16 flex flex-wrap items-baseline justify-between gap-4 rounded-2xl px-5 py-4">
       <a href={`mailto:${me.email}`} className="text-[22px] font-medium tracking-tight hover:text-brand hover:no-underline">
         {me.email}
       </a>

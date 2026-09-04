@@ -144,7 +144,7 @@ export function ImageGallery({ images, index, onIndexChange, onClose, label }: P
           type="button"
           onClick={onClose}
           aria-label="Close gallery"
-          className="glass flex size-8 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+          className="glass relative flex size-8 cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-white/10"
         >
           <X className="size-3.5" />
         </button>

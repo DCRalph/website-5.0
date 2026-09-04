@@ -140,7 +140,7 @@ export function ProjectDrawer({ project, onClose }: Props) {
               </Button>
             )}
             {project.codeLink && (
-              <Button asChild size="sm" variant="outline" className="glass rounded-lg">
+              <Button asChild size="sm" variant="outline" className="glass relative rounded-lg">
                 <a href={project.codeLink} target="_blank" rel="noopener">
                   <CodeXml /> Source
                 </a>

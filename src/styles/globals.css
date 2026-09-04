@@ -39,17 +39,39 @@
   --radius-xl: 16px;
 }
 
-/* Frosted panel: faint white fill, hairline edge, top highlight, backdrop blur. */
+/* Frosted panel: faint white fill, gradient rim, backdrop blur.
+   The border is transparent to reserve the 1px; ::before paints the rim
+   so it can be bright at the top-left and fade out towards the bottom-right,
+   which reads as light catching a glass edge. Hosts must be positioned. */
 @utility glass {
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid transparent;
 }
 
-/* Tailwind v4 strips backdrop-filter from @utility, so the blur lives here. */
+/* Tailwind v4 strips backdrop-filter from @utility, so the blur lives here.
+   border-color also lives here so variant classes like dark:border-input
+   cannot paint a solid edge under the rim. */
 .glass {
+  border-color: transparent;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.32) 0%,
+    rgba(255, 255, 255, 0.1) 35%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 
 /* Particle frost plates own the blur; a second backdrop-filter on the card
