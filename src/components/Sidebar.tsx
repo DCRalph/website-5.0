@@ -30,7 +30,7 @@ export function Sidebar() {
 
       <div
         data-frost
-        className="glass relative z-10 mt-10 max-w-md rounded-2xl bg-white/[0.015] p-5 md:mt-0"
+        className="glass relative z-10 mt-10 max-w-md rounded-2xl p-5 md:mt-0"
       >
         <dl className="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5 text-dim">
           <dt className="text-dimmer">Now</dt>

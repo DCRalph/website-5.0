@@ -73,15 +73,13 @@ function FrostPlates({ wrapRef }: { wrapRef: RefObject<HTMLDivElement | null> })
         <div
           key={i}
           aria-hidden
-          className="pointer-events-none absolute"
+          className="glass-backdrop pointer-events-none absolute"
           style={{
             top: r.y,
             left: r.x,
             width: r.w,
             height: r.h,
             borderRadius: r.radius,
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
           }}
         />
       ))}
