@@ -35,10 +35,16 @@ const config = {
   },
   rewrites: async () => {
     return [
-      // Static FFT Scope app lives in public/scope; serve its index at /scope
+      // Static FFT Scope app lives in public/scope; serve its pages
+      // extensionless. Scripts are referenced as /scope/*.js so they resolve
+      // regardless of the trailing slash on these paths.
       {
         source: "/scope",
         destination: "/scope/index.html",
+      },
+      {
+        source: "/scope/offline",
+        destination: "/scope/offline.html",
       },
       {
         source: "/fuckoffaddblockers/:match*",
