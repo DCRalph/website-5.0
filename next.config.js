@@ -35,6 +35,11 @@ const config = {
   },
   rewrites: async () => {
     return [
+      // Static FFT Scope app lives in public/scope; serve its index at /scope
+      {
+        source: "/scope",
+        destination: "/scope/index.html",
+      },
       {
         source: "/fuckoffaddblockers/:match*",
         destination: "https://https://williamgiles.co.nz/_vercel/insights/:match*",

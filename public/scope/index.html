@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FFT Scope</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --dim: #6d757f;
+    --line: #1b1e24;
+    --edge: #262b33;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 11px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+    -webkit-font-smoothing: antialiased;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 6px 10px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .bar::-webkit-scrollbar { display: none; }
+  .bar.top { border-bottom: 1px solid var(--line); }
+  .bar.bottom { border-top: 1px solid var(--line); }
+  #transport { border-top: 1px solid var(--line); display: none; }
+  body.has-file #transport { display: flex; }
+  #autobar { border-top: 1px solid var(--line); display: none; }
+  body.auto #autobar { display: flex; }
+  #trate { color: var(--dim); letter-spacing: .06em; }
+  #tlamps { display: flex; gap: 3px; }
+  #tlamps span {
+    display: inline-block; width: 24px; text-align: center;
+    border: 1px solid var(--edge); color: var(--dim); letter-spacing: .06em;
+  }
+  #trate i { color: var(--fg); font-style: normal; }
+  .grp { display: flex; align-items: center; gap: 6px; }
+  .grp b, label b { color: var(--dim); font-weight: 400; letter-spacing: .09em; }
+  .spacer { flex: 1 1 auto; }
+  .dim { color: var(--dim); }
+  label { display: flex; align-items: center; gap: 6px; color: var(--dim); letter-spacing: .09em; }
+  button {
+    font: inherit;
+    letter-spacing: .09em;
+    color: var(--dim);
+    background: transparent;
+    border: 1px solid var(--edge);
+    padding: 2px 8px;
+    cursor: pointer;
+  }
+  button:hover { color: var(--fg); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:disabled:hover { color: var(--dim); }
+  button.on { color: var(--fg); border-color: var(--fg); }
+  input[type=number] {
+    font: inherit;
+    color: var(--fg);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--edge);
+    width: 58px;
+    padding: 1px 2px;
+    text-align: right;
+  }
+  input[type=number]:focus { outline: 0; border-bottom-color: var(--fg); }
+  input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    width: 92px;
+    height: 12px;
+    cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--edge); }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 3px; height: 11px;
+    background: var(--fg);
+    margin-top: -5px;
+  }
+  input[type=range]::-moz-range-track { height: 1px; background: var(--edge); }
+  input[type=range]::-moz-range-thumb { width: 3px; height: 11px; border: 0; border-radius: 0; background: var(--fg); }
+  .val { color: var(--fg); min-width: 42px; display: inline-block; }
+  input[type=range].narrow { width: 64px; }
+  #scopeWrap { flex: 1 1 auto; position: relative; min-height: 0; overflow: hidden; }
+  #specWrap { flex: 0 0 116px; position: relative; min-height: 0; overflow: hidden; border-top: 1px solid var(--line); }
+  #overWrap { flex: 0 0 62px; position: relative; min-height: 0; overflow: hidden; border-top: 1px solid var(--line); display: none; }
+  body.has-file #overWrap { display: block; }
+  /* absolute so the canvas intrinsic size never feeds back into the flex layout */
+  canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  #spec { cursor: ew-resize; }
+  #over { cursor: text; }
+  #stats, #time, #bpm { color: var(--dim); letter-spacing: .06em; }
+  #stats i, #time i, #bpm i { color: var(--fg); font-style: normal; }
+  #status { color: var(--fg); letter-spacing: .09em; }
+  #fname { max-width: 240px; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+  #drop {
+    position: absolute; inset: 0;
+    display: none; align-items: center; justify-content: center;
+    background: rgba(0,0,0,.85);
+    border: 1px solid var(--fg);
+    letter-spacing: .12em;
+  }
+  body.dragging #drop { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="bar top">
+  <span class="grp">
+    <b>SRC</b>
+    <button data-src="mic">MIC</button>
+    <button data-src="file">FILE</button>
+    <button data-src="test">TEST</button>
+  </span>
+  <span id="fname" class="dim">drop an audio file</span>
+  <span class="grp">
+    <button id="monitor">MONITOR</button>
+    <button id="solo">SOLO</button>
+    <button id="freeze">FREEZE</button>
+    <button id="gridb">GRID</button>
+    <button id="envb">FILL</button>
+  </span>
+  <span id="status"></span>
+  <span class="spacer"></span>
+  <span id="stats"></span>
+</div>
+
+<div id="scopeWrap">
+  <canvas id="scope"></canvas>
+  <div id="drop">DROP AUDIO FILE</div>
+</div>
+
+<div id="specWrap"><canvas id="spec"></canvas></div>
+
+<div id="overWrap"><canvas id="over"></canvas></div>
+
+<div class="bar" id="transport">
+  <span class="grp">
+    <button id="play">PLAY</button>
+    <button id="stop">STOP</button>
+    <button id="back">-1 BAR</button>
+    <button id="fwd">+1 BAR</button>
+  </span>
+  <span class="grp">
+    <button id="loop">LOOP</button>
+    <button data-loopbars="1">1</button>
+    <button data-loopbars="2">2</button>
+    <button data-loopbars="4">4</button>
+    <button data-loopbars="8">8</button>
+  </span>
+  <label><b>RATE</b><input id="rate" type="range" min="0.25" max="2" step="0.01"><span class="val" id="ratev"></span></label>
+  <span id="time"></span>
+  <span class="spacer"></span>
+  <span id="bpm"></span>
+  <span class="grp">
+    <button id="x2">x2</button>
+    <button id="d2">/2</button>
+    <b>BAR</b>
+    <button id="nudgeL">-1</button>
+    <button id="nudgeR">+1</button>
+    <button id="beatsb">BEATS</button>
+  </span>
+</div>
+
+<div class="bar" id="autobar">
+  <span class="grp">
+    <b>FOCUS</b>
+    <button data-focus="all">ALL</button>
+    <button data-focus="low">LOW</button>
+    <button data-focus="mid">MID</button>
+    <button data-focus="high">HIGH</button>
+  </span>
+  <span class="grp">
+    <b>METHOD</b>
+    <button data-method="level" title="in band level, baseline removed">LEVEL</button>
+    <button data-method="flux" title="spectral flux: rectified rise per bin">FLUX</button>
+    <button data-method="sflux" title="SuperFlux: flux with vibrato suppression">SFLUX</button>
+    <button data-method="hfc" title="high frequency content: bin weighted level">HFC</button>
+    <button data-method="phase" title="weighted phase deviation">PHASE</button>
+    <button data-method="cplx" title="rectified complex domain">CPLX</button>
+  </span>
+  <span class="grp">
+    <b>FULL</b>
+    <button data-method="superflux" title="SuperFlux over the whole spectrum, band ignored">SFLUX</button>
+    <button data-method="perc" title="percussive energy after harmonic/percussive separation, band ignored">PERC</button>
+  </span>
+  <label><b>SENS</b><input id="sens" type="range" min="0" max="1" step="0.01"><span class="val" id="sensv"></span></label>
+  <button id="hold">HOLD</button>
+  <span id="tlamps" title="range of the attacks in view: low low, high low, low mid, high mid, low high, high high"><span>LL</span><span>HL</span><span>LM</span><span>HM</span><span>LH</span><span>HH</span></span>
+  <span id="trate"></span>
+</div>
+
+<div class="bar bottom">
+  <label><b>LOW</b><input id="lo" type="number" min="5" step="1"></label>
+  <label><b>HIGH</b><input id="hi" type="number" min="10" step="1"></label>
+  <button id="auto">AUTO</button>
+  <label><b>WIN</b><input id="win" type="range" min="0" max="1000" step="1"><span class="val" id="winv"></span></label>
+  <span class="grp">
+    <b>BARS</b>
+    <button data-bars="1">1</button>
+    <button data-bars="2">2</button>
+    <button data-bars="4">4</button>
+  </span>
+  <label><b>GAIN</b><input id="gain" type="range" min="-24" max="48" step="1"><span class="val" id="gainv"></span> dB</label>
+  <button id="norm">NORM</button>
+  <span class="grp">
+    <b>TRIG</b>
+    <button data-trig="edge">EDGE</button>
+    <button data-trig="bar">BAR</button>
+    <button data-trig="trans">TRANS</button>
+    <button data-trig="off">OFF</button>
+    <label><input id="lev" class="narrow" type="range" min="-0.9" max="0.9" step="0.01"></label>
+  </span>
+  <span class="grp">
+    <b>COLOR</b>
+    <button data-col="freq">FREQ</button>
+    <button data-col="env">ENV</button>
+    <button data-col="flat">FLAT</button>
+  </span>
+</div>
+
+<input id="fileInput" type="file" accept="audio/*" hidden>
+
+<script src="dsp.js"></script>
+<script src="beatgrid.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
