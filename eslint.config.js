@@ -4,7 +4,8 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   {
     // canvasui/ is vendored from a shadcn registry and is not ours to lint.
-    ignores: [".next", "src/components/canvasui"],
+    // public/ holds static apps served as-is (e.g. /scope).
+    ignores: [".next", "src/components/canvasui", "public"],
   },
   ...nextCoreWebVitals,
   {
