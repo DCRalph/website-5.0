@@ -28,7 +28,9 @@ export function Projects() {
   return (
     <section>
       <SectionLabel>Projects</SectionLabel>
-      <ul className="flex flex-col gap-3">
+      {/* Left padding keeps the cards off the column edge, so their glass rim
+          and blur have room instead of butting up against the scroll band. */}
+      <ul className="flex flex-col gap-3 pl-4">
         {projects.map((p) => (
           <ProjectRow
             key={p.title}
