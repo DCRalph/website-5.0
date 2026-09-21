@@ -15,6 +15,11 @@ const isScrolled = () => window.scrollY > 8;
  * dissolves as it leaves the viewport. On mobile the sidebar scrolls too, so
  * the top band only appears once the page has scrolled; on desktop it is
  * always on.
+ *
+ * On desktop the bands start a blur radius (64px, the widest GradientBlur
+ * layer) left of the column so the smear off a card's lit edge lands inside
+ * the band instead of being clipped into a hard line at the column seam. The
+ * overhang only ever covers empty sidebar padding.
  */
 export function ScrollEdges() {
   const scrolled = useSyncExternalStore(subscribe, isScrolled, () => false);
@@ -23,14 +28,14 @@ export function ScrollEdges() {
     <>
       <div
         className={cn(
-          "pointer-events-none fixed inset-x-0 top-0 z-20 h-20 transition-opacity duration-300 md:left-1/2",
+          "pointer-events-none fixed inset-x-0 top-0 z-20 h-20 transition-opacity duration-300 md:left-[calc(50%-4rem)]",
           scrolled ? "opacity-100" : "opacity-0 md:opacity-100",
         )}
       >
         <GradientBlur direction="top" className="absolute inset-0" />
         <div className="absolute inset-0 bg-black/55 [mask-image:linear-gradient(to_bottom,#000_40%,transparent)]" />
       </div>
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-20 h-20 md:left-1/2">
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-20 h-20 md:left-[calc(50%-4rem)]">
         <GradientBlur direction="bottom" className="absolute inset-0" />
         <div className="absolute inset-0 bg-black/55 [mask-image:linear-gradient(to_top,#000_40%,transparent)]" />
       </div>
