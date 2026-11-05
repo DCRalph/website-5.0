@@ -1,6 +1,7 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import { WGParticles } from "~/components/WGParticles";
-import { experience } from "~/lib/experience";
+import { experience, sideGigs } from "~/lib/experience";
 import { me } from "~/lib/me";
 
 const current = experience[0];
@@ -38,6 +39,15 @@ export function Sidebar() {
             <span className="mr-2 inline-block size-1.5 rounded-full bg-brand align-middle" aria-hidden />
             {current.position}, {current.company}
           </dd>
+          {sideGigs.map((gig) => (
+            <Fragment key={gig.position}>
+              <dt className="text-dimmer">Also</dt>
+              <dd>
+                <span className="mr-2 inline-block size-1.5 rounded-full border border-brand align-middle" aria-hidden />
+                {gig.position}, {gig.company}
+              </dd>
+            </Fragment>
+          ))}
           <dt className="text-dimmer">Where</dt>
           <dd>{me.location}</dd>
           <dt className="text-dimmer">Focus</dt>

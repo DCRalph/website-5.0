@@ -8,12 +8,6 @@ type Role = {
 // Newest first. `experience[0]` is the current role and is shown in the sidebar.
 export const experience = [
   {
-    company: "Atmos",
-    position: "The Asset",
-    time: "Feb 2026 - now",
-    description: "",
-  },
-  {
     company: "Bactosure",
     position: "Head of Technology Operations",
     time: "Jan 2026 - now",
@@ -32,5 +26,15 @@ export const experience = [
     position: "Software Engineer",
     time: "Aug 2023 - Nov 2024",
     description: "Device firmware and cloud systems for a rapid bacteria test.",
+  },
+] as const satisfies Role[];
+
+// Side roles alongside the main job. Listed under Work and as "Also" in the sidebar.
+export const sideGigs = [
+  {
+    company: "Atmos",
+    position: "The Asset",
+    time: "Feb 2026 - now",
+    description: "",
   },
 ] as const satisfies Role[];
