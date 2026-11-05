@@ -36,6 +36,6 @@ export const sideGigs = [
     position: "The Asset",
     time: "Feb 2026 - now",
     description:
-      "Wellington promoter putting on immersive electronic music events, from club nights and afters to waterfront parties.",
+      "Wellington promoter running immersive electronic music events.",
   },
 ] as const satisfies Role[];
