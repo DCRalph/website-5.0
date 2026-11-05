@@ -35,6 +35,7 @@ export const sideGigs = [
     company: "Atmos",
     position: "The Asset",
     time: "Feb 2026 - now",
-    description: "",
+    description:
+      "Wellington promoter putting on immersive electronic music events, from club nights and afters to waterfront parties.",
   },
 ] as const satisfies Role[];
