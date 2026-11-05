@@ -33,7 +33,7 @@ export const experience = [
 export const sideGigs = [
   {
     company: "Atmos",
-    position: "The Asset",
+    position: "Production Manager",
     time: "Feb 2026 - now",
     description:
       "Wellington promoter running immersive electronic music events.",
